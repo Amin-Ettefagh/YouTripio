@@ -1,15 +1,15 @@
 ﻿# YouTripio
 
-YouTripio is a trust-first travel logistics network that connects travelers, parcel owners, and companions in one flow. This repo is a full Next.js + Tailwind implementation with a responsive UI, default dark mode, and bilingual support (English + Persian).
+YouTripio is a trust-first travel cargo & companion network that connects travelers, parcel owners, and companions in one unified flow. This repository delivers a full Next.js + Tailwind implementation with a responsive UI, default dark mode, bilingual EN/FA support, and a standalone GitHub Pages demo.
 
 ## Highlights
 
 - Unified parcel and companion flow with marketplace-style discovery.
 - Dashboard, control center, and request management views.
-- Mobile-first, fully responsive layouts.
+- Mobile-first layouts with full responsiveness across screens.
 - Default dark mode with a single-toggle switch.
-- Language toggle with English (default) and Persian support.
-- GitHub-ready repo with documentation, templates, and policies.
+- Language toggle with English (default) and Persian (RTL) support.
+- GitHub-ready repository with docs, policies, and templates.
 - Standalone `index.html` demo for GitHub Pages.
 
 ## Tech Stack
@@ -19,19 +19,7 @@ YouTripio is a trust-first travel logistics network that connects travelers, par
 - Tailwind CSS v4
 - React Icons
 
-## Requirements
-
-- Node.js 18+ (recommended)
-- npm (bundled with Node.js)
-
-## Getting Started
-
-Clone the repo:
-
-```bash
-git clone <your-repo-url>
-cd YouTripio
-```
+## Quick Start
 
 Install dependencies:
 
@@ -100,19 +88,17 @@ App:
 
 ## Theming
 
-Dark mode is the default. The theme toggle persists the preference in local storage:
+Dark mode is the default. The theme toggle persists the preference in local storage.
 
 - Key: `youtripio-theme`
 - Values: `dark`, `light`
 
-## Language Toggle
+## Language (EN/FA + RTL)
 
-English is the default. The language toggle persists the preference in local storage:
+English is the default. The language toggle persists the preference in local storage, and applies RTL layout when Persian is selected.
 
 - Key: `youtripio-language`
 - Values: `en`, `fa`
-
-RTL is automatically applied when Persian is selected.
 
 ## Static Demo (GitHub Pages)
 
@@ -134,26 +120,29 @@ Docs live in the `docs/` folder:
 - `docs/deployment.md`
 - `docs/roadmap.md`
 
-## Environment Variables
+## Quality Checks
 
-No environment variables are required for local development.
-
-## Linting
+Run lint:
 
 ```bash
 npm run lint
 ```
 
-## Deployment
-
-Next.js production build:
+Production build:
 
 ```bash
 npm run build
-npm run start
 ```
 
-For static preview, use the `index.html` demo.
+## Repository Metadata (For GitHub)
+
+Suggested Description:
+
+YouTripio is a trust-first travel cargo & companion network built with Next.js, Tailwind CSS, and TypeScript. It features a responsive UI, default dark mode, bilingual EN/FA support, and a standalone GitHub Pages demo.
+
+Suggested Topics:
+
+`nextjs`, `react`, `typescript`, `tailwindcss`, `travel`, `logistics`, `marketplace`, `dashboard`, `ui`, `responsive-design`, `dark-mode`, `i18n`, `rtl`, `github-pages`, `landing-page`
 
 ## Contributing
 
