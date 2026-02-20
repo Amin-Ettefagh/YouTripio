@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>YouTripia Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      .box {
+        width: 100%; /* می‌توانید اندازه ثابت مثلا width: 300px هم قرار دهید */
+        height: 200px; /* اندازه‌ای که می‌خواهید باکس‌ها داشته باشند */
+        background-color: #f0f0f0;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+      }
+      .activity-status-title {
+        font-size: 3rem; /* سایز بزرگتر برای متن */
+        text-align: center; /* وسط چین کردن متن */
+        margin-bottom: 20px; /* فاصله از باکس‌ها */
+        color: #003366; /* رنگ اصلی سایت شما */
+        font-weight: bold; /* ضخیم کردن متن */
+      }
+    </style>
+  </head>
+  <body class="bg-gray-100 text-gray-900">
+    <!-- Header -->
+    <header
+      class="flex justify-between items-center p-5 bg-gray-300 text-black"
+    >
+      <h1 class="text-2xl font-bold">YouTripia</h1>
+      <h2 class="text-xl">Dashboard - Profile</h2>
+    </header>
+
+    <!-- Main Container -->
+    <h1 class="activity-status-title">Your Activity Status</h1>
+
+    <div class="container mx-auto p-10 grid grid-cols-1 md:grid-cols-2 gap-8">
+      <!-- Box 1 -->
+      <div
+        id="box1"
+        class="bg-white p-5 border-2 border-gray-300 rounded-lg shadow-lg"
+      >
+        <h3 class="text-center text-xl mb-4">Journey Status (Carrier)</h3>
+        <div id="box1-a" class="mb-4">
+          <p>Parcel journey code from carrier is: <strong>11Ad</strong></p>
+        </div>
+        <div id="box1-b" class="mb-4">
+          <label for="cargo-code" class="block"
+            >Enter journey code from Parcel owner:</label
+          >
+          <p>contact number : +64-21-000-0000</p>
+          <input
+            type="text"
+            id="cargo-code"
+            class="border p-2 w-full"
+            placeholder="Enter owner journey code"
+          />
+          <button
+            onclick="submitBox1()"
+            class="mt-2 px-4 py-2 bg-black text-white rounded"
+          >
+            Submit
+          </button>
+        </div>
+        <div id="box1-c" class="hidden mb-4">
+          <p>Parcel end journey code from carrier is: <strong>13Cf</strong></p>
+        </div>
+        <div id="box1-d" class="hidden mb-4">
+          <label for="end-code" class="block"
+            >Enter end journey code from Parcel owner:</label
+          >
+          <input
+            type="text"
+            id="end-code"
+            class="border p-2 w-full"
+            placeholder="Enter owner end journey code"
+          />
+          <button
+            onclick="endJourneyBox1()"
+            class="mt-2 px-4 py-2 bg-black text-white rounded"
+          >
+            Submit
+          </button>
+        </div>
+      </div>
+
+      <!-- Box 2 -->
+      <div
+        id="box2"
+        class="bg-white p-5 border-2 border-gray-300 rounded-lg shadow-lg"
+      >
+        <h3 class="text-center text-xl mb-4">Journey Status (Owner)</h3>
+        <div id="box2-a" class="mb-4">
+          <p>Parcel journey code from owner is: <strong>12Be</strong></p>
+        </div>
+        <div id="box2-b" class="mb-4">
+          <label for="carrier-code" class="block"
+            >Enter journey code from carrier:</label
+          >
+          <p>contact number : +64-21-000-0000</p>
+          <input
+            type="text"
+            id="carrier-code"
+            class="border p-2 w-full"
+            placeholder="Enter carrier journey code"
+          />
+          <button
+            onclick="submitBox2()"
+            class="mt-2 px-4 py-2 bg-black text-white rounded"
+          >
+            Submit
+          </button>
+        </div>
+        <div id="box2-c" class="hidden mb-4">
+          <p>Parcel end journey code from owner is: <strong>14Dg</strong></p>
+        </div>
+        <div id="box2-d" class="hidden mb-4">
+          <label for="end-carrier-code" class="block"
+            >Enter end journey code from carrier:</label
+          >
+          <input
+            type="text"
+            id="end-carrier-code"
+            class="border p-2 w-full"
+            placeholder="Enter carrier end journey code"
+          />
+          <button
+            onclick="endJourneyBox2()"
+            class="mt-2 px-4 py-2 bg-black text-white rounded"
+          >
+            Submit
+          </button>
+        </div>
+      </div>
+
+      <!-- Box 3 -->
+      <div
+        id="box3"
+        class="bg-white p-5 border-2 border-gray-300 rounded-lg shadow-lg"
+      >
+        <h3 class="text-center text-xl mb-4">Companion Status (Driver)</h3>
+        <div id="box3-a" class="mb-4">
+          <p>Journey code from driver is: <strong>15Ea</strong></p>
+        </div>
+        <div id="box3-b" class="mb-4">
+          <label for="passenger-code" class="block"
+            >Enter journey code from passenger:</label
+          >
+          <p>contact number : +64-21-000-0000</p>
+          <input
+            type="text"
+            id="passenger-code"
+            class="border p-2 w-full"
+            placeholder="Enter passenger journey code"
+          />
+          <button
+            onclick="submitBox3()"
+            class="mt-2 px-4 py-2 bg-black text-white rounded"
+          >
+            Submit
+          </button>
+        </div>
+        <div id="box3-c" class="hidden mb-4">
+          <p>End journey code from driver is: <strong>17Gc</strong></p>
+        </div>
+        <div id="box3-d" class="hidden mb-4">
+          <label for="end-passenger-code" class="block"
+            >Enter end journey code from passenger:</label
+          >
+          <input
+            type="text"
+            id="end-passenger-code"
+            class="border p-2 w-full"
+            placeholder="Enter passenger end journey code"
+          />
+          <button
+            onclick="endJourneyBox3()"
+            class="mt-2 px-4 py-2 bg-black text-white rounded"
+          >
+            Submit
+          </button>
+        </div>
+      </div>
+
+      <!-- Box 4 -->
+      <div
+        id="box4"
+        class="bg-white p-5 border-2 border-gray-300 rounded-lg shadow-lg"
+      >
+        <h3 class="text-center text-xl mb-4">Companion Status (Passenger)</h3>
+        <div id="box4-a" class="mb-4">
+          <p>Journey code from passenger is: <strong>16Fb</strong></p>
+        </div>
+        <div id="box4-b" class="mb-4">
+          <label for="driver-code" class="block"
+            >Enter journey code from driver:</label
+          >
+          <p>contact number : +64-21-000-0000</p>
+          <input
+            type="text"
+            id="driver-code"
+            class="border p-2 w-full"
+            placeholder="Enter driver journey code"
+          />
+          <button
+            onclick="submitBox4()"
+            class="mt-2 px-4 py-2 bg-black text-white rounded"
+          >
+            Submit
+          </button>
+        </div>
+        <div id="box4-c" class="hidden mb-4">
+          <p>End journey code from passenger is: <strong>18Hd</strong></p>
+        </div>
+        <div id="box4-d" class="hidden mb-4">
+          <label for="end-driver-code" class="block"
+            >Enter end journey code from driver:</label
+          >
+          <input
+            type="text"
+            id="end-driver-code"
+            class="border p-2 w-full"
+            placeholder="Enter driver end journey code"
+          />
+          <button
+            onclick="endJourneyBox4()"
+            class="mt-2 px-4 py-2 bg-black text-white rounded"
+          >
+            Submit
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div
+      id="toast"
+      class="fixed bottom-5 right-5 p-4 bg-red-500 text-white rounded hidden"
+    >
+      Invalid Code Entered!
+    </div>
+
+    <button
+      id="backButton"
+      class="fixed bottom-5 right-5 bg-gray-500 text-white px-4 py-2 rounded-full shadow-lg hover:bg-blue-500 transition duration-300"
+    >
+      Back
+    </button>
+
+    <script>
+      // Functions for Box 1
+      function submitBox1() {
+        const code = document.getElementById("cargo-code").value;
+        if (code === "12Be") {
+          document.getElementById("box1-a").classList.add("hidden");
+          document.getElementById("box1-b").classList.add("hidden");
+          document.getElementById("box1-c").classList.remove("hidden");
+          document.getElementById("box1-d").classList.remove("hidden");
+        } else {
+          showToast();
+        }
+      }
+
+      function endJourneyBox1() {
+        const code = document.getElementById("end-code").value;
+        if (code === "14Dg") {
+          clearBox("box1");
+          showSuccessMessage("box1", "Journey successfully completed");
+        } else {
+          showToast();
+        }
+      }
+
+      // Functions for Box 2
+      function submitBox2() {
+        const code = document.getElementById("carrier-code").value;
+        if (code === "11Ad") {
+          document.getElementById("box2-a").classList.add("hidden");
+          document.getElementById("box2-b").classList.add("hidden");
+          document.getElementById("box2-c").classList.remove("hidden");
+          document.getElementById("box2-d").classList.remove("hidden");
+        } else {
+          showToast();
+        }
+      }
+
+      function endJourneyBox2() {
+        const code = document.getElementById("end-carrier-code").value;
+        if (code === "13Cf") {
+          clearBox("box2");
+          showSuccessMessage("box2", "Journey successfully completed");
+        } else {
+          showToast();
+        }
+      }
+
+      // Functions for Box 3
+      function submitBox3() {
+        const code = document.getElementById("passenger-code").value;
+        if (code === "16Fb") {
+          document.getElementById("box3-a").classList.add("hidden");
+          document.getElementById("box3-b").classList.add("hidden");
+          document.getElementById("box3-c").classList.remove("hidden");
+          document.getElementById("box3-d").classList.remove("hidden");
+        } else {
+          showToast();
+        }
+      }
+
+      function endJourneyBox3() {
+        const code = document.getElementById("end-passenger-code").value;
+        if (code === "18Hd") {
+          clearBox("box3");
+          showSuccessMessage("box3", "Journey successfully completed");
+        } else {
+          showToast();
+        }
+      }
+
+      // Functions for Box 4
+      function submitBox4() {
+        const code = document.getElementById("driver-code").value;
+        if (code === "15Ea") {
+          document.getElementById("box4-a").classList.add("hidden");
+          document.getElementById("box4-b").classList.add("hidden");
+          document.getElementById("box4-c").classList.remove("hidden");
+          document.getElementById("box4-d").classList.remove("hidden");
+        } else {
+          showToast();
+        }
+      }
+
+      function endJourneyBox4() {
+        const code = document.getElementById("end-driver-code").value;
+        if (code === "17Gc") {
+          clearBox("box4");
+          showSuccessMessage("box4", "Journey successfully completed");
+        } else {
+          showToast();
+        }
+      }
+
+      // Common Helper Functions
+      function clearBox(boxId) {
+        document.getElementById(boxId + "-a").classList.add("hidden");
+        document.getElementById(boxId + "-b").classList.add("hidden");
+        document.getElementById(boxId + "-c").classList.add("hidden");
+        document.getElementById(boxId + "-d").classList.add("hidden");
+      }
+
+      function showSuccessMessage(boxId, message) {
+        const box = document.getElementById(boxId);
+        box.innerHTML = `<h3 class="text-center text-xl mb-4">${message}</h3>`;
+      }
+
+      function showToast() {
+        const toast = document.getElementById("toast");
+        toast.classList.remove("hidden");
+        setTimeout(() => {
+          toast.classList.add("hidden");
+        }, 2000);
+      }
+      function showSuccessMessage(boxId, message) {
+        const box = document.getElementById(boxId);
+        box.innerHTML = `<h3 class="text-center text-xl">${message}</h3>`;
+        box.style.display = "flex"; // برای نمایش منعطف
+        box.style.alignItems = "center"; // مرکز کردن عمودی
+        box.style.justifyContent = "center"; // مرکز کردن افقی
+      }
+
+      document
+        .getElementById("backButton")
+        .addEventListener("click", function () {
+          window.location.href = "dashboard.html";
+        });
+    </script>
+  </body>
+</html>

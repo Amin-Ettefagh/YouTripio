@@ -1,0 +1,1296 @@
+﻿<!doctype html>
+<html lang="en" dir="ltr" class="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>YouTripio — Travel Cargo & Companion Network</title>
+  <meta name="description" content="YouTripio connects travelers with trusted parcel delivery and companion requests, turning unused capacity into shared journeys." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          boxShadow: {
+            glow: "0 20px 60px -30px rgba(56,189,248,0.6)",
+          },
+        },
+      },
+    }
+  </script>
+  <style>
+    :root {
+      --color-bg: #0b0f1a;
+      --color-surface: #0f172a;
+      --color-card: #111827;
+      --color-text: #e5e7eb;
+      --color-muted: #94a3b8;
+      --color-accent: #38bdf8;
+      --color-accent-2: #fbbf24;
+      --color-border: rgba(148, 163, 184, 0.2);
+      --color-success: #22c55e;
+      --color-danger: #f43f5e;
+    }
+    html.light {
+      --color-bg: #f8fafc;
+      --color-surface: #ffffff;
+      --color-card: #f1f5f9;
+      --color-text: #0f172a;
+      --color-muted: #475569;
+      --color-accent: #0284c7;
+      --color-accent-2: #f59e0b;
+      --color-border: rgba(15, 23, 42, 0.12);
+    }
+    body {
+      font-family: "Manrope", system-ui, -apple-system, sans-serif;
+      background: var(--color-bg);
+      color: var(--color-text);
+    }
+    h1, h2, h3, h4 {
+      font-family: "Space Grotesk", system-ui, -apple-system, sans-serif;
+      letter-spacing: -0.02em;
+    }
+    .section-shell {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .glass {
+      background: linear-gradient(140deg, rgba(56, 189, 248, 0.12), rgba(15, 23, 42, 0.6));
+      border: 1px solid var(--color-border);
+      box-shadow: 0 30px 80px -60px rgba(15, 23, 42, 0.8);
+    }
+    .card {
+      background: var(--color-card);
+      border: 1px solid var(--color-border);
+    }
+    .tag {
+      border: 1px solid var(--color-border);
+      color: var(--color-muted);
+    }
+    .noise {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.08;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+      mix-blend-mode: overlay;
+      z-index: 0;
+    }
+    .floating {
+      animation: float 9s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+    .rtl-text {
+      font-family: "Manrope", system-ui, -apple-system, sans-serif;
+    }
+  </style>
+</head>
+<body class="min-h-screen antialiased">
+  <div class="noise"></div>
+  <header class="sticky top-0 z-40 border-b border-white/5 backdrop-blur">
+    <div class="section-shell flex flex-wrap items-center justify-between gap-4 py-4">
+      <div class="flex items-center gap-3">
+        <div class="h-10 w-10 rounded-full bg-gradient-to-br from-sky-400 via-cyan-400 to-amber-300 p-[2px]">
+          <div class="flex h-full w-full items-center justify-center rounded-full bg-slate-950 text-sm font-bold text-white">YT</div>
+        </div>
+        <div>
+          <p class="text-[10px] uppercase tracking-[0.35em] text-[color:var(--color-muted)]">YouTripio</p>
+          <p class="text-sm font-semibold" data-i18n="nav_tagline">Travel Cargo & Companion Network</p>
+        </div>
+      </div>
+      <nav class="hidden xl:flex items-center gap-5 text-xs font-semibold uppercase tracking-[0.25em] text-[color:var(--color-muted)]">
+        <a href="#home" data-i18n="nav_home">Home</a>
+        <a href="#about" data-i18n="nav_about">About</a>
+        <a href="#services" data-i18n="nav_services">Services</a>
+        <a href="#how" data-i18n="nav_how">How It Works</a>
+        <a href="#market" data-i18n="nav_market">Marketplace</a>
+        <a href="#dashboard" data-i18n="nav_dashboard">Dashboard</a>
+        <a href="#blog" data-i18n="nav_blog">Blog</a>
+        <a href="#contact" data-i18n="nav_contact">Contact</a>
+      </nav>
+      <div class="flex items-center gap-3">
+        <button id="langToggle" class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-2 text-xs font-semibold uppercase tracking-[0.25em] text-[color:var(--color-text)]">
+          <span id="langLabel">EN</span>
+        </button>
+        <button id="themeToggle" class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-[color:var(--color-text)]">
+          <span id="themeLabel" data-i18n="theme_dark_label">Dark mode</span>
+        </button>
+        <a href="#dashboard" class="hidden sm:inline-flex items-center gap-2 rounded-full bg-sky-400 px-4 py-2 text-xs font-bold uppercase tracking-[0.2em] text-slate-950" data-i18n="btn_view_demo">View demo</a>
+      </div>
+    </div>
+  </header>
+  <main id="home" class="relative z-10">
+    <section class="section-shell grid gap-12 pb-16 pt-16 lg:grid-cols-[1.1fr_0.9fr]">
+      <div class="space-y-6">
+        <p class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-[color:var(--color-muted)]" data-i18n="hero_kicker">Travel. Send. Meet.</p>
+        <h1 class="text-4xl font-semibold leading-tight text-white sm:text-5xl" data-i18n="hero_title">Turn every trip into trusted cargo delivery and companion journeys.</h1>
+        <p class="text-base text-[color:var(--color-muted)] sm:text-lg" data-i18n="hero_subtitle">YouTripio connects travelers with verified parcel requests and companions, giving you more control, more earnings, and safer travel experiences.</p>
+        <div class="flex flex-wrap items-center gap-4">
+          <a href="#market" class="rounded-full bg-sky-400 px-6 py-3 text-sm font-semibold uppercase tracking-[0.2em] text-slate-950" data-i18n="btn_get_started">Get started</a>
+          <a href="#how" class="rounded-full border border-white/10 px-6 py-3 text-sm font-semibold uppercase tracking-[0.2em] text-white" data-i18n="btn_learn_more">Learn more</a>
+        </div>
+        <div class="grid gap-4 sm:grid-cols-3">
+          <div class="card rounded-2xl p-4">
+            <p class="text-2xl font-semibold text-white">48K+</p>
+            <p class="text-xs uppercase tracking-[0.25em] text-[color:var(--color-muted)]" data-i18n="hero_stat1">Trips shared</p>
+          </div>
+          <div class="card rounded-2xl p-4">
+            <p class="text-2xl font-semibold text-white">92%</p>
+            <p class="text-xs uppercase tracking-[0.25em] text-[color:var(--color-muted)]" data-i18n="hero_stat2">Matched in 6h</p>
+          </div>
+          <div class="card rounded-2xl p-4">
+            <p class="text-2xl font-semibold text-white">4.9/5</p>
+            <p class="text-xs uppercase tracking-[0.25em] text-[color:var(--color-muted)]" data-i18n="hero_stat3">Traveler trust</p>
+          </div>
+        </div>
+      </div>
+      <div class="relative">
+        <div class="glass rounded-3xl p-6">
+          <div class="flex items-center justify-between">
+            <p class="text-xs uppercase tracking-[0.25em] text-[color:var(--color-muted)]" data-i18n="hero_panel_title">Live Trip Dashboard</p>
+            <span class="rounded-full bg-emerald-400/20 px-3 py-1 text-xs font-semibold text-emerald-200" data-i18n="hero_panel_status">Online</span>
+          </div>
+          <div class="mt-6 grid gap-4">
+            <div class="rounded-2xl border border-white/10 bg-slate-950/70 p-4">
+              <p class="text-sm font-semibold text-white" data-i18n="hero_card_1_title">Dubai ? Berlin</p>
+              <p class="text-xs text-[color:var(--color-muted)]" data-i18n="hero_card_1_body">3 parcels, 2 companions, 18kg available.</p>
+              <div class="mt-3 flex flex-wrap gap-2">
+                <span class="tag rounded-full px-3 py-1 text-[10px] uppercase tracking-[0.2em]" data-i18n="tag_verified">Verified</span>
+                <span class="tag rounded-full px-3 py-1 text-[10px] uppercase tracking-[0.2em]" data-i18n="tag_insured">Insured</span>
+              </div>
+            </div>
+            <div class="rounded-2xl border border-white/10 bg-slate-950/70 p-4">
+              <p class="text-sm font-semibold text-white" data-i18n="hero_card_2_title">Toronto ? Istanbul</p>
+              <p class="text-xs text-[color:var(--color-muted)]" data-i18n="hero_card_2_body">Companion match ready, fast-track check-in.</p>
+              <div class="mt-3 flex flex-wrap gap-2">
+                <span class="tag rounded-full px-3 py-1 text-[10px] uppercase tracking-[0.2em]" data-i18n="tag_priority">Priority</span>
+                <span class="tag rounded-full px-3 py-1 text-[10px] uppercase tracking-[0.2em]" data-i18n="tag_premium">Premium</span>
+              </div>
+            </div>
+            <div class="rounded-2xl border border-white/10 bg-slate-950/70 p-4">
+              <p class="text-sm font-semibold text-white" data-i18n="hero_card_3_title">Seoul ? Paris</p>
+              <p class="text-xs text-[color:var(--color-muted)]" data-i18n="hero_card_3_body">Fashion parcel delivered with 4.8? rating.</p>
+            </div>
+          </div>
+        </div>
+        <div class="floating absolute -bottom-6 -left-6 hidden rounded-2xl bg-slate-950/90 p-4 shadow-glow md:block">
+          <p class="text-xs uppercase tracking-[0.25em] text-[color:var(--color-muted)]" data-i18n="hero_float_title">Revenue</p>
+          <p class="mt-2 text-2xl font-semibold text-white">$1,240</p>
+          <p class="text-xs text-emerald-300" data-i18n="hero_float_body">Last 30 days</p>
+        </div>
+      </div>
+    </section>
+    <section id="about" class="section-shell py-12">
+      <div class="grid gap-8 lg:grid-cols-[1fr_1fr]">
+        <div class="space-y-4">
+          <p class="text-xs uppercase tracking-[0.3em] text-[color:var(--color-muted)]" data-i18n="about_kicker">About YouTripio</p>
+          <h2 class="text-3xl font-semibold text-white" data-i18n="about_title">A trusted network for travelers, senders, and companions.</h2>
+          <p class="text-[color:var(--color-muted)]" data-i18n="about_body">YouTripio turns unused luggage space into verified delivery lanes, while matching travelers who want a safer, social journey. Built for transparency, identity verification, and real-time trip intelligence.</p>
+        </div>
+        <div class="grid gap-4 sm:grid-cols-2">
+          <div class="card rounded-2xl p-5">
+            <p class="text-2xl font-semibold text-white">120+</p>
+            <p class="text-xs uppercase tracking-[0.25em] text-[color:var(--color-muted)]" data-i18n="about_stat1">Cities connected</p>
+          </div>
+          <div class="card rounded-2xl p-5">
+            <p class="text-2xl font-semibold text-white">98%</p>
+            <p class="text-xs uppercase tracking-[0.25em] text-[color:var(--color-muted)]" data-i18n="about_stat2">On-time deliveries</p>
+          </div>
+          <div class="card rounded-2xl p-5">
+            <p class="text-2xl font-semibold text-white">24/7</p>
+            <p class="text-xs uppercase tracking-[0.25em] text-[color:var(--color-muted)]" data-i18n="about_stat3">Safety support</p>
+          </div>
+          <div class="card rounded-2xl p-5">
+            <p class="text-2xl font-semibold text-white">16K</p>
+            <p class="text-xs uppercase tracking-[0.25em] text-[color:var(--color-muted)]" data-i18n="about_stat4">Verified companions</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="services" class="section-shell py-12">
+      <div class="flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <p class="text-xs uppercase tracking-[0.3em] text-[color:var(--color-muted)]" data-i18n="services_kicker">Services</p>
+          <h2 class="text-3xl font-semibold text-white" data-i18n="services_title">Everything you need to move smarter.</h2>
+        </div>
+        <a href="#pricing" class="rounded-full border border-white/10 px-5 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-white" data-i18n="services_cta">Compare plans</a>
+      </div>
+      <div class="mt-8 grid gap-4 md:grid-cols-3">
+        <div class="card rounded-2xl p-5">
+          <p class="text-sm font-semibold text-white" data-i18n="service_1_title">Cargo Carry</p>
+          <p class="text-sm text-[color:var(--color-muted)]" data-i18n="service_1_body">List your available baggage space and earn on verified parcels.</p>
+        </div>
+        <div class="card rounded-2xl p-5">
+          <p class="text-sm font-semibold text-white" data-i18n="service_2_title">Companion Match</p>
+          <p class="text-sm text-[color:var(--color-muted)]" data-i18n="service_2_body">Find trusted travel companions based on route, interests, and timing.</p>
+        </div>
+        <div class="card rounded-2xl p-5">
+          <p class="text-sm font-semibold text-white" data-i18n="service_3_title">Smart Routing</p>
+          <p class="text-sm text-[color:var(--color-muted)]" data-i18n="service_3_body">Auto-suggest optimal meeting points, handoff times, and pickup windows.</p>
+        </div>
+        <div class="card rounded-2xl p-5">
+          <p class="text-sm font-semibold text-white" data-i18n="service_4_title">Insurance Shield</p>
+          <p class="text-sm text-[color:var(--color-muted)]" data-i18n="service_4_body">Every parcel is protected with coverage and a dispute workflow.</p>
+        </div>
+        <div class="card rounded-2xl p-5">
+          <p class="text-sm font-semibold text-white" data-i18n="service_5_title">Travel Wallet</p>
+          <p class="text-sm text-[color:var(--color-muted)]" data-i18n="service_5_body">Hold payouts, split fees, and withdraw earnings instantly.</p>
+        </div>
+        <div class="card rounded-2xl p-5">
+          <p class="text-sm font-semibold text-white" data-i18n="service_6_title">Safety Center</p>
+          <p class="text-sm text-[color:var(--color-muted)]" data-i18n="service_6_body">24/7 monitoring, live check-ins, and trusted emergency contacts.</p>
+        </div>
+      </div>
+    </section>
+    <section id="how" class="section-shell py-12">
+      <div class="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
+        <div class="space-y-4">
+          <p class="text-xs uppercase tracking-[0.3em] text-[color:var(--color-muted)]" data-i18n="how_kicker">How it works</p>
+          <h2 class="text-3xl font-semibold text-white" data-i18n="how_title">Three steps to a safer trip.</h2>
+          <p class="text-[color:var(--color-muted)]" data-i18n="how_body">Publish your trip or request, verify identities, and meet with confidence. Everything stays visible in your dashboard.</p>
+        </div>
+        <div class="grid gap-4 sm:grid-cols-3">
+          <div class="card rounded-2xl p-4">
+            <p class="text-sm font-semibold text-white" data-i18n="how_step1_title">1. Create</p>
+            <p class="text-xs text-[color:var(--color-muted)]" data-i18n="how_step1_body">Share trip dates, capacity, or parcel details.</p>
+          </div>
+          <div class="card rounded-2xl p-4">
+            <p class="text-sm font-semibold text-white" data-i18n="how_step2_title">2. Match</p>
+            <p class="text-xs text-[color:var(--color-muted)]" data-i18n="how_step2_body">Review verified profiles and confirm handoff points.</p>
+          </div>
+          <div class="card rounded-2xl p-4">
+            <p class="text-sm font-semibold text-white" data-i18n="how_step3_title">3. Track</p>
+            <p class="text-xs text-[color:var(--color-muted)]" data-i18n="how_step3_body">Follow updates, live chat, and payout release.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="market" class="section-shell py-12">
+      <div class="flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <p class="text-xs uppercase tracking-[0.3em] text-[color:var(--color-muted)]" data-i18n="market_kicker">Marketplace</p>
+          <h2 class="text-3xl font-semibold text-white" data-i18n="market_title">Live requests and available capacity.</h2>
+        </div>
+        <div class="flex gap-2">
+          <span class="tag rounded-full px-3 py-1 text-[10px] uppercase tracking-[0.2em]" data-i18n="market_tag1">Priority</span>
+          <span class="tag rounded-full px-3 py-1 text-[10px] uppercase tracking-[0.2em]" data-i18n="market_tag2">Same-day</span>
+          <span class="tag rounded-full px-3 py-1 text-[10px] uppercase tracking-[0.2em]" data-i18n="market_tag3">Companion</span>
+        </div>
+      </div>
+      <div class="mt-8 grid gap-4 lg:grid-cols-3">
+        <div class="card rounded-2xl p-5">
+          <div class="flex items-center justify-between">
+            <p class="text-sm font-semibold text-white" data-i18n="market_item1_title">Electronics Parcel</p>
+            <span class="text-xs font-semibold text-emerald-300">$280</span>
+          </div>
+          <p class="mt-2 text-xs text-[color:var(--color-muted)]" data-i18n="market_item1_body">Shanghai ? Rome · 3kg · Secure wrap.</p>
+          <div class="mt-3 flex flex-wrap gap-2">
+            <span class="tag rounded-full px-2 py-1 text-[10px] uppercase tracking-[0.2em]" data-i18n="tag_insured">Insured</span>
+            <span class="tag rounded-full px-2 py-1 text-[10px] uppercase tracking-[0.2em]" data-i18n="tag_verified">Verified</span>
+          </div>
+        </div>
+        <div class="card rounded-2xl p-5">
+          <div class="flex items-center justify-between">
+            <p class="text-sm font-semibold text-white" data-i18n="market_item2_title">Fashion Sample</p>
+            <span class="text-xs font-semibold text-emerald-300">$190</span>
+          </div>
+          <p class="mt-2 text-xs text-[color:var(--color-muted)]" data-i18n="market_item2_body">Milan ? Dubai · 2kg · Premium handling.</p>
+          <div class="mt-3 flex flex-wrap gap-2">
+            <span class="tag rounded-full px-2 py-1 text-[10px] uppercase tracking-[0.2em]" data-i18n="tag_priority">Priority</span>
+            <span class="tag rounded-full px-2 py-1 text-[10px] uppercase tracking-[0.2em]" data-i18n="tag_premium">Premium</span>
+          </div>
+        </div>
+        <div class="card rounded-2xl p-5">
+          <div class="flex items-center justify-between">
+            <p class="text-sm font-semibold text-white" data-i18n="market_item3_title">Family Companion</p>
+            <span class="text-xs font-semibold text-emerald-300">$120</span>
+          </div>
+          <p class="mt-2 text-xs text-[color:var(--color-muted)]" data-i18n="market_item3_body">Los Angeles ? Tokyo · 2 seats · Shared lounge.</p>
+          <div class="mt-3 flex flex-wrap gap-2">
+            <span class="tag rounded-full px-2 py-1 text-[10px] uppercase tracking-[0.2em]" data-i18n="tag_companion">Companion</span>
+            <span class="tag rounded-full px-2 py-1 text-[10px] uppercase tracking-[0.2em]" data-i18n="tag_verified">Verified</span>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="dashboard" class="section-shell py-12">
+      <div class="flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <p class="text-xs uppercase tracking-[0.3em] text-[color:var(--color-muted)]" data-i18n="dashboard_kicker">Dashboard</p>
+          <h2 class="text-3xl font-semibold text-white" data-i18n="dashboard_title">Everything important in one view.</h2>
+        </div>
+        <a href="#auth" class="rounded-full border border-white/10 px-5 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-white" data-i18n="dashboard_cta">Open app</a>
+      </div>
+      <div class="mt-8 grid gap-4 lg:grid-cols-[1.2fr_0.8fr]">
+        <div class="card rounded-3xl p-6">
+          <div class="flex flex-wrap items-center justify-between gap-4">
+            <div>
+              <p class="text-sm font-semibold text-white" data-i18n="dashboard_overview_title">Trip overview</p>
+              <p class="text-xs text-[color:var(--color-muted)]" data-i18n="dashboard_overview_body">Your active routes, parcels, and companions.</p>
+            </div>
+            <div class="flex gap-2">
+              <span class="tag rounded-full px-3 py-1 text-[10px] uppercase tracking-[0.2em]" data-i18n="dashboard_filter_all">All</span>
+              <span class="tag rounded-full px-3 py-1 text-[10px] uppercase tracking-[0.2em]" data-i18n="dashboard_filter_active">Active</span>
+              <span class="tag rounded-full px-3 py-1 text-[10px] uppercase tracking-[0.2em]" data-i18n="dashboard_filter_pending">Pending</span>
+            </div>
+          </div>
+          <div class="mt-6 grid gap-3">
+            <div class="rounded-2xl border border-white/10 bg-slate-950/70 p-4">
+              <div class="flex items-center justify-between">
+                <p class="text-sm font-semibold text-white" data-i18n="dashboard_trip1">Berlin ? Lisbon</p>
+                <span class="text-xs text-emerald-300" data-i18n="dashboard_trip1_status">On track</span>
+              </div>
+              <p class="mt-2 text-xs text-[color:var(--color-muted)]" data-i18n="dashboard_trip1_body">2 parcels, 1 companion · Check-in 16:40.</p>
+            </div>
+            <div class="rounded-2xl border border-white/10 bg-slate-950/70 p-4">
+              <div class="flex items-center justify-between">
+                <p class="text-sm font-semibold text-white" data-i18n="dashboard_trip2">Doha ? Bangkok</p>
+                <span class="text-xs text-amber-300" data-i18n="dashboard_trip2_status">Need approval</span>
+              </div>
+              <p class="mt-2 text-xs text-[color:var(--color-muted)]" data-i18n="dashboard_trip2_body">Parcel worth $380 awaiting verification.</p>
+            </div>
+            <div class="rounded-2xl border border-white/10 bg-slate-950/70 p-4">
+              <div class="flex items-center justify-between">
+                <p class="text-sm font-semibold text-white" data-i18n="dashboard_trip3">Toronto ? Athens</p>
+                <span class="text-xs text-sky-300" data-i18n="dashboard_trip3_status">Matched</span>
+              </div>
+              <p class="mt-2 text-xs text-[color:var(--color-muted)]" data-i18n="dashboard_trip3_body">Companion seat booked, lounge access shared.</p>
+            </div>
+          </div>
+        </div>
+        <div class="grid gap-4">
+          <div class="card rounded-2xl p-5">
+            <p class="text-xs uppercase tracking-[0.25em] text-[color:var(--color-muted)]" data-i18n="dashboard_wallet_title">Wallet balance</p>
+            <p class="mt-2 text-2xl font-semibold text-white">$3,420</p>
+            <p class="text-xs text-[color:var(--color-muted)]" data-i18n="dashboard_wallet_body">Next payout in 2 days.</p>
+          </div>
+          <div class="card rounded-2xl p-5">
+            <p class="text-xs uppercase tracking-[0.25em] text-[color:var(--color-muted)]" data-i18n="dashboard_insights_title">Impact</p>
+            <p class="mt-2 text-sm text-white" data-i18n="dashboard_insights_body">9.2kg CO2 saved this month by sharing capacity.</p>
+          </div>
+          <div class="card rounded-2xl p-5">
+            <p class="text-xs uppercase tracking-[0.25em] text-[color:var(--color-muted)]" data-i18n="dashboard_support_title">Support</p>
+            <p class="mt-2 text-sm text-white" data-i18n="dashboard_support_body">Safety team online 24/7 for your active routes.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="control" class="section-shell py-12">
+      <div class="grid gap-6 lg:grid-cols-[1fr_1fr]">
+        <div class="space-y-4">
+          <p class="text-xs uppercase tracking-[0.3em] text-[color:var(--color-muted)]" data-i18n="control_kicker">Control Center</p>
+          <h2 class="text-3xl font-semibold text-white" data-i18n="control_title">Command every route with full visibility.</h2>
+          <p class="text-[color:var(--color-muted)]" data-i18n="control_body">Monitor active matches, escalation alerts, verification status, and payouts in real time.</p>
+          <div class="flex flex-wrap gap-3">
+            <span class="tag rounded-full px-3 py-1 text-[10px] uppercase tracking-[0.2em]" data-i18n="control_tag1">Risk scoring</span>
+            <span class="tag rounded-full px-3 py-1 text-[10px] uppercase tracking-[0.2em]" data-i18n="control_tag2">Live chat</span>
+            <span class="tag rounded-full px-3 py-1 text-[10px] uppercase tracking-[0.2em]" data-i18n="control_tag3">Incident log</span>
+          </div>
+        </div>
+        <div class="card rounded-3xl p-6">
+          <p class="text-xs uppercase tracking-[0.25em] text-[color:var(--color-muted)]" data-i18n="control_panel_title">Operations overview</p>
+          <div class="mt-4 grid gap-3">
+            <div class="flex items-center justify-between rounded-2xl border border-white/10 bg-slate-950/70 p-4">
+              <p class="text-sm text-white" data-i18n="control_item1">Verification queue</p>
+              <span class="text-sm font-semibold text-amber-300">14</span>
+            </div>
+            <div class="flex items-center justify-between rounded-2xl border border-white/10 bg-slate-950/70 p-4">
+              <p class="text-sm text-white" data-i18n="control_item2">Active routes</p>
+              <span class="text-sm font-semibold text-emerald-300">86</span>
+            </div>
+            <div class="flex items-center justify-between rounded-2xl border border-white/10 bg-slate-950/70 p-4">
+              <p class="text-sm text-white" data-i18n="control_item3">Escalations</p>
+              <span class="text-sm font-semibold text-rose-300">2</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="requests" class="section-shell py-12">
+      <div class="flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <p class="text-xs uppercase tracking-[0.3em] text-[color:var(--color-muted)]" data-i18n="requests_kicker">Requests</p>
+          <h2 class="text-3xl font-semibold text-white" data-i18n="requests_title">Parcel requests ready for matching.</h2>
+        </div>
+        <a href="#cargo" class="rounded-full border border-white/10 px-5 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-white" data-i18n="requests_cta">Post a request</a>
+      </div>
+      <div class="mt-8 grid gap-4 md:grid-cols-3">
+        <div class="card rounded-2xl p-5">
+          <p class="text-sm font-semibold text-white" data-i18n="request_1_title">Medical kit</p>
+          <p class="text-xs text-[color:var(--color-muted)]" data-i18n="request_1_body">Doha ? Nairobi · 4kg · Needs cooling pack.</p>
+        </div>
+        <div class="card rounded-2xl p-5">
+          <p class="text-sm font-semibold text-white" data-i18n="request_2_title">Art print roll</p>
+          <p class="text-xs text-[color:var(--color-muted)]" data-i18n="request_2_body">Paris ? Seoul · 2kg · Flat carry required.</p>
+        </div>
+        <div class="card rounded-2xl p-5">
+          <p class="text-sm font-semibold text-white" data-i18n="request_3_title">Gift hamper</p>
+          <p class="text-xs text-[color:var(--color-muted)]" data-i18n="request_3_body">Miami ? Bogotá · 5kg · Weekend delivery.</p>
+        </div>
+      </div>
+    </section>
+    <section id="trips" class="section-shell py-12">
+      <div class="flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <p class="text-xs uppercase tracking-[0.3em] text-[color:var(--color-muted)]" data-i18n="trips_kicker">Trips</p>
+          <h2 class="text-3xl font-semibold text-white" data-i18n="trips_title">Available travel capacity.</h2>
+        </div>
+        <a href="#companion" class="rounded-full border border-white/10 px-5 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-white" data-i18n="trips_cta">Find companion</a>
+      </div>
+      <div class="mt-8 grid gap-4 md:grid-cols-3">
+        <div class="card rounded-2xl p-5">
+          <p class="text-sm font-semibold text-white" data-i18n="trip_1_title">Jakarta ? Madrid</p>
+          <p class="text-xs text-[color:var(--color-muted)]" data-i18n="trip_1_body">8kg free · 2 stopovers · Trusted traveler.</p>
+        </div>
+        <div class="card rounded-2xl p-5">
+          <p class="text-sm font-semibold text-white" data-i18n="trip_2_title">Istanbul ? Oslo</p>
+          <p class="text-xs text-[color:var(--color-muted)]" data-i18n="trip_2_body">5kg free · Lounge access · Early check-in.</p>
+        </div>
+        <div class="card rounded-2xl p-5">
+          <p class="text-sm font-semibold text-white" data-i18n="trip_3_title">Mexico City ? Vancouver</p>
+          <p class="text-xs text-[color:var(--color-muted)]" data-i18n="trip_3_body">12kg free · Priority boarding · Verified ID.</p>
+        </div>
+      </div>
+    </section>
+    <section id="cargo" class="section-shell py-12">
+      <div class="grid gap-6 lg:grid-cols-[1fr_1fr]">
+        <div class="space-y-4">
+          <p class="text-xs uppercase tracking-[0.3em] text-[color:var(--color-muted)]" data-i18n="cargo_kicker">Send Cargo</p>
+          <h2 class="text-3xl font-semibold text-white" data-i18n="cargo_title">Create a secure parcel request.</h2>
+          <p class="text-[color:var(--color-muted)]" data-i18n="cargo_body">Describe your shipment, choose delivery window, and get matched with a verified traveler.</p>
+        </div>
+        <form class="card rounded-3xl p-6">
+          <div class="grid gap-4 sm:grid-cols-2">
+            <div>
+              <label class="text-xs uppercase tracking-[0.2em] text-[color:var(--color-muted)]" data-i18n="form_from">From city</label>
+              <input class="mt-2 w-full rounded-xl border border-white/10 bg-slate-950/70 px-4 py-3 text-sm" placeholder="Dubai" data-i18n-placeholder="form_from_ph" />
+            </div>
+            <div>
+              <label class="text-xs uppercase tracking-[0.2em] text-[color:var(--color-muted)]" data-i18n="form_to">To city</label>
+              <input class="mt-2 w-full rounded-xl border border-white/10 bg-slate-950/70 px-4 py-3 text-sm" placeholder="Berlin" data-i18n-placeholder="form_to_ph" />
+            </div>
+            <div>
+              <label class="text-xs uppercase tracking-[0.2em] text-[color:var(--color-muted)]" data-i18n="form_weight">Weight</label>
+              <input class="mt-2 w-full rounded-xl border border-white/10 bg-slate-950/70 px-4 py-3 text-sm" placeholder="3kg" data-i18n-placeholder="form_weight_ph" />
+            </div>
+            <div>
+              <label class="text-xs uppercase tracking-[0.2em] text-[color:var(--color-muted)]" data-i18n="form_date">Pickup date</label>
+              <input class="mt-2 w-full rounded-xl border border-white/10 bg-slate-950/70 px-4 py-3 text-sm" placeholder="Aug 14" data-i18n-placeholder="form_date_ph" />
+            </div>
+            <div class="sm:col-span-2">
+              <label class="text-xs uppercase tracking-[0.2em] text-[color:var(--color-muted)]" data-i18n="form_details">Details</label>
+              <textarea class="mt-2 w-full rounded-xl border border-white/10 bg-slate-950/70 px-4 py-3 text-sm" rows="3" placeholder="Fragile, sealed, insurance required." data-i18n-placeholder="form_details_ph"></textarea>
+            </div>
+          </div>
+          <button type="button" class="mt-6 w-full rounded-full bg-sky-400 px-4 py-3 text-xs font-bold uppercase tracking-[0.2em] text-slate-950" data-i18n="form_submit">Publish request</button>
+        </form>
+      </div>
+    </section>
+    <section id="companion" class="section-shell py-12">
+      <div class="grid gap-6 lg:grid-cols-[1fr_1fr]">
+        <form class="card rounded-3xl p-6 order-2 lg:order-1">
+          <div class="grid gap-4">
+            <div>
+              <label class="text-xs uppercase tracking-[0.2em] text-[color:var(--color-muted)]" data-i18n="companion_destination">Destination</label>
+              <input class="mt-2 w-full rounded-xl border border-white/10 bg-slate-950/70 px-4 py-3 text-sm" placeholder="Singapore" data-i18n-placeholder="companion_destination_ph" />
+            </div>
+            <div>
+              <label class="text-xs uppercase tracking-[0.2em] text-[color:var(--color-muted)]" data-i18n="companion_dates">Dates</label>
+              <input class="mt-2 w-full rounded-xl border border-white/10 bg-slate-950/70 px-4 py-3 text-sm" placeholder="Sep 02 - Sep 10" data-i18n-placeholder="companion_dates_ph" />
+            </div>
+            <div>
+              <label class="text-xs uppercase tracking-[0.2em] text-[color:var(--color-muted)]" data-i18n="companion_interests">Interests</label>
+              <input class="mt-2 w-full rounded-xl border border-white/10 bg-slate-950/70 px-4 py-3 text-sm" placeholder="Food, museums, hiking" data-i18n-placeholder="companion_interests_ph" />
+            </div>
+            <button type="button" class="mt-2 w-full rounded-full bg-white/10 px-4 py-3 text-xs font-bold uppercase tracking-[0.2em] text-white" data-i18n="companion_submit">Find companions</button>
+          </div>
+        </form>
+        <div class="space-y-4 order-1 lg:order-2">
+          <p class="text-xs uppercase tracking-[0.3em] text-[color:var(--color-muted)]" data-i18n="companion_kicker">Companion Match</p>
+          <h2 class="text-3xl font-semibold text-white" data-i18n="companion_title">Travel with people you trust.</h2>
+          <p class="text-[color:var(--color-muted)]" data-i18n="companion_body">Pick companions based on shared interests, travel goals, and verified social proof.</p>
+          <div class="flex flex-wrap gap-3">
+            <span class="tag rounded-full px-3 py-1 text-[10px] uppercase tracking-[0.2em]" data-i18n="companion_tag1">Verified ID</span>
+            <span class="tag rounded-full px-3 py-1 text-[10px] uppercase tracking-[0.2em]" data-i18n="companion_tag2">Shared itinerary</span>
+            <span class="tag rounded-full px-3 py-1 text-[10px] uppercase tracking-[0.2em]" data-i18n="companion_tag3">Trusted reviews</span>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="pricing" class="section-shell py-12">
+      <div class="flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <p class="text-xs uppercase tracking-[0.3em] text-[color:var(--color-muted)]" data-i18n="pricing_kicker">Pricing</p>
+          <h2 class="text-3xl font-semibold text-white" data-i18n="pricing_title">Plans for solo travelers to global teams.</h2>
+        </div>
+        <p class="text-sm text-[color:var(--color-muted)]" data-i18n="pricing_note">All plans include verified profiles and escrow protection.</p>
+      </div>
+      <div class="mt-8 grid gap-4 md:grid-cols-3">
+        <div class="card rounded-2xl p-6">
+          <p class="text-xs uppercase tracking-[0.25em] text-[color:var(--color-muted)]" data-i18n="pricing_basic">Starter</p>
+          <p class="mt-2 text-3xl font-semibold text-white">$0</p>
+          <p class="mt-2 text-sm text-[color:var(--color-muted)]" data-i18n="pricing_basic_body">Perfect for occasional deliveries.</p>
+        </div>
+        <div class="card rounded-2xl border border-sky-400/60 p-6 shadow-glow">
+          <p class="text-xs uppercase tracking-[0.25em] text-sky-200" data-i18n="pricing_pro">Pro</p>
+          <p class="mt-2 text-3xl font-semibold text-white">$29</p>
+          <p class="mt-2 text-sm text-[color:var(--color-muted)]" data-i18n="pricing_pro_body">Priority matches and insurance uplift.</p>
+        </div>
+        <div class="card rounded-2xl p-6">
+          <p class="text-xs uppercase tracking-[0.25em] text-[color:var(--color-muted)]" data-i18n="pricing_team">Enterprise</p>
+          <p class="mt-2 text-3xl font-semibold text-white">Custom</p>
+          <p class="mt-2 text-sm text-[color:var(--color-muted)]" data-i18n="pricing_team_body">Dedicated account and SLA coverage.</p>
+        </div>
+      </div>
+    </section>
+    <section class="section-shell py-12">
+      <div class="grid gap-4 md:grid-cols-3">
+        <div class="card rounded-2xl p-5">
+          <p class="text-sm font-semibold text-white" data-i18n="testimonial_1_title">“Safe, fast, and transparent.”</p>
+          <p class="text-xs text-[color:var(--color-muted)]" data-i18n="testimonial_1_body">I delivered two parcels and matched a companion within hours.</p>
+        </div>
+        <div class="card rounded-2xl p-5">
+          <p class="text-sm font-semibold text-white" data-i18n="testimonial_2_title">“The control center is brilliant.”</p>
+          <p class="text-xs text-[color:var(--color-muted)]" data-i18n="testimonial_2_body">We can track verification and payouts in real time.</p>
+        </div>
+        <div class="card rounded-2xl p-5">
+          <p class="text-sm font-semibold text-white" data-i18n="testimonial_3_title">“Feels like a travel community.”</p>
+          <p class="text-xs text-[color:var(--color-muted)]" data-i18n="testimonial_3_body">I finally found companions who share my pace and interests.</p>
+        </div>
+      </div>
+    </section>
+    <section id="blog" class="section-shell py-12">
+      <div class="flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <p class="text-xs uppercase tracking-[0.3em] text-[color:var(--color-muted)]" data-i18n="blog_kicker">Blog</p>
+          <h2 class="text-3xl font-semibold text-white" data-i18n="blog_title">Stories from the YouTripio community.</h2>
+        </div>
+        <a href="#terms" class="rounded-full border border-white/10 px-5 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-white" data-i18n="blog_cta">Read policy</a>
+      </div>
+      <div class="mt-8 grid gap-4 md:grid-cols-3">
+        <article class="card rounded-2xl p-5">
+          <p class="text-xs uppercase tracking-[0.25em] text-[color:var(--color-muted)]" data-i18n="blog_post1_tag">Logbook</p>
+          <h3 class="mt-2 text-lg font-semibold text-white" data-i18n="blog_post1_title">How travelers earn $500 monthly</h3>
+          <p class="mt-2 text-sm text-[color:var(--color-muted)]" data-i18n="blog_post1_body">Tips for packing, communication, and safety workflows.</p>
+        </article>
+        <article class="card rounded-2xl p-5">
+          <p class="text-xs uppercase tracking-[0.25em] text-[color:var(--color-muted)]" data-i18n="blog_post2_tag">Guide</p>
+          <h3 class="mt-2 text-lg font-semibold text-white" data-i18n="blog_post2_title">Companion matching best practices</h3>
+          <p class="mt-2 text-sm text-[color:var(--color-muted)]" data-i18n="blog_post2_body">Use filters to align schedules and travel comfort.</p>
+        </article>
+        <article class="card rounded-2xl p-5">
+          <p class="text-xs uppercase tracking-[0.25em] text-[color:var(--color-muted)]" data-i18n="blog_post3_tag">Safety</p>
+          <h3 class="mt-2 text-lg font-semibold text-white" data-i18n="blog_post3_title">What our verification includes</h3>
+          <p class="mt-2 text-sm text-[color:var(--color-muted)]" data-i18n="blog_post3_body">Government ID, selfie checks, and trip history signals.</p>
+        </article>
+      </div>
+    </section>
+    <section id="faq" class="section-shell py-12">
+      <div class="flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <p class="text-xs uppercase tracking-[0.3em] text-[color:var(--color-muted)]" data-i18n="faq_kicker">FAQ</p>
+          <h2 class="text-3xl font-semibold text-white" data-i18n="faq_title">Common questions, clear answers.</h2>
+        </div>
+        <span class="text-xs text-[color:var(--color-muted)]" data-i18n="faq_note">Support reply time: under 2 hours.</span>
+      </div>
+      <div class="mt-8 grid gap-4 md:grid-cols-2">
+        <div class="card rounded-2xl p-5">
+          <p class="text-sm font-semibold text-white" data-i18n="faq_1_q">How do you verify travelers?</p>
+          <p class="mt-2 text-sm text-[color:var(--color-muted)]" data-i18n="faq_1_a">We verify IDs, past trip activity, and require a live selfie check.</p>
+        </div>
+        <div class="card rounded-2xl p-5">
+          <p class="text-sm font-semibold text-white" data-i18n="faq_2_q">Is parcel insurance included?</p>
+          <p class="mt-2 text-sm text-[color:var(--color-muted)]" data-i18n="faq_2_a">Yes, all deliveries include coverage with optional upgrades.</p>
+        </div>
+        <div class="card rounded-2xl p-5">
+          <p class="text-sm font-semibold text-white" data-i18n="faq_3_q">Can I cancel after matching?</p>
+          <p class="mt-2 text-sm text-[color:var(--color-muted)]" data-i18n="faq_3_a">You can cancel within the grace window without fees.</p>
+        </div>
+        <div class="card rounded-2xl p-5">
+          <p class="text-sm font-semibold text-white" data-i18n="faq_4_q">Do you support group travel?</p>
+          <p class="mt-2 text-sm text-[color:var(--color-muted)]" data-i18n="faq_4_a">Yes, create a group itinerary and invite companions.</p>
+        </div>
+      </div>
+    </section>
+    <section id="contact" class="section-shell py-12">
+      <div class="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
+        <div class="space-y-4">
+          <p class="text-xs uppercase tracking-[0.3em] text-[color:var(--color-muted)]" data-i18n="contact_kicker">Contact</p>
+          <h2 class="text-3xl font-semibold text-white" data-i18n="contact_title">Let’s build your next journey.</h2>
+          <p class="text-[color:var(--color-muted)]" data-i18n="contact_body">Reach out for partnerships, enterprise onboarding, or support questions.</p>
+          <div class="space-y-2 text-sm text-[color:var(--color-muted)]">
+            <p>support@youtripio.com</p>
+            <p>+1 (415) 555-0196</p>
+            <p data-i18n="contact_location">Dubai · Istanbul · Toronto</p>
+          </div>
+        </div>
+        <form class="card rounded-3xl p-6">
+          <div class="grid gap-4">
+            <div>
+              <label class="text-xs uppercase tracking-[0.2em] text-[color:var(--color-muted)]" data-i18n="contact_name">Name</label>
+              <input class="mt-2 w-full rounded-xl border border-white/10 bg-slate-950/70 px-4 py-3 text-sm" placeholder="Alex Morgan" data-i18n-placeholder="contact_name_ph" />
+            </div>
+            <div>
+              <label class="text-xs uppercase tracking-[0.2em] text-[color:var(--color-muted)]" data-i18n="contact_email">Email</label>
+              <input class="mt-2 w-full rounded-xl border border-white/10 bg-slate-950/70 px-4 py-3 text-sm" placeholder="alex@youtripio.com" data-i18n-placeholder="contact_email_ph" />
+            </div>
+            <div>
+              <label class="text-xs uppercase tracking-[0.2em] text-[color:var(--color-muted)]" data-i18n="contact_subject">Subject</label>
+              <input class="mt-2 w-full rounded-xl border border-white/10 bg-slate-950/70 px-4 py-3 text-sm" placeholder="Partnership inquiry" data-i18n-placeholder="contact_subject_ph" />
+            </div>
+            <div>
+              <label class="text-xs uppercase tracking-[0.2em] text-[color:var(--color-muted)]" data-i18n="contact_message">Message</label>
+              <textarea class="mt-2 w-full rounded-xl border border-white/10 bg-slate-950/70 px-4 py-3 text-sm" rows="4" placeholder="Tell us about your goals." data-i18n-placeholder="contact_message_ph"></textarea>
+            </div>
+            <button type="button" class="rounded-full bg-sky-400 px-4 py-3 text-xs font-bold uppercase tracking-[0.2em] text-slate-950" data-i18n="contact_submit">Send message</button>
+          </div>
+        </form>
+      </div>
+    </section>
+    <section id="auth" class="section-shell py-12">
+      <div class="grid gap-6 lg:grid-cols-[1fr_1fr]">
+        <div class="space-y-4">
+          <p class="text-xs uppercase tracking-[0.3em] text-[color:var(--color-muted)]" data-i18n="auth_kicker">Access</p>
+          <h2 class="text-3xl font-semibold text-white" data-i18n="auth_title">Sign in to manage your trips.</h2>
+          <p class="text-[color:var(--color-muted)]" data-i18n="auth_body">Create an account or log in to unlock matching, payouts, and safety tools.</p>
+          <p class="text-xs text-[color:var(--color-muted)]" data-i18n="auth_note">This is a static demo layout for GitHub Pages.</p>
+        </div>
+        <div class="grid gap-4 md:grid-cols-2">
+          <form class="card rounded-2xl p-5">
+            <p class="text-sm font-semibold text-white" data-i18n="auth_signin">Sign in</p>
+            <div class="mt-4 space-y-3">
+              <input class="w-full rounded-xl border border-white/10 bg-slate-950/70 px-4 py-3 text-sm" placeholder="Email" data-i18n-placeholder="auth_email_ph" />
+              <input class="w-full rounded-xl border border-white/10 bg-slate-950/70 px-4 py-3 text-sm" placeholder="Password" data-i18n-placeholder="auth_password_ph" />
+              <button type="button" class="w-full rounded-full bg-white/10 px-4 py-3 text-xs font-bold uppercase tracking-[0.2em] text-white" data-i18n="auth_signin_btn">Continue</button>
+            </div>
+          </form>
+          <form class="card rounded-2xl p-5">
+            <p class="text-sm font-semibold text-white" data-i18n="auth_signup">Create account</p>
+            <div class="mt-4 space-y-3">
+              <input class="w-full rounded-xl border border-white/10 bg-slate-950/70 px-4 py-3 text-sm" placeholder="Full name" data-i18n-placeholder="auth_name_ph" />
+              <input class="w-full rounded-xl border border-white/10 bg-slate-950/70 px-4 py-3 text-sm" placeholder="Email" data-i18n-placeholder="auth_email_ph" />
+              <button type="button" class="w-full rounded-full bg-sky-400 px-4 py-3 text-xs font-bold uppercase tracking-[0.2em] text-slate-950" data-i18n="auth_signup_btn">Join YouTripio</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+    <section id="terms" class="section-shell py-12">
+      <div class="grid gap-6 lg:grid-cols-[1fr_1fr]">
+        <div class="space-y-4">
+          <p class="text-xs uppercase tracking-[0.3em] text-[color:var(--color-muted)]" data-i18n="terms_kicker">Terms</p>
+          <h2 class="text-3xl font-semibold text-white" data-i18n="terms_title">Transparent policies that protect everyone.</h2>
+          <p class="text-[color:var(--color-muted)]" data-i18n="terms_body">YouTripio relies on verified identities, escrow payouts, and safety standards.</p>
+        </div>
+        <ul class="space-y-3 text-sm text-[color:var(--color-muted)]">
+          <li class="card rounded-2xl p-4" data-i18n="terms_item1">All parcels must be declared and comply with airline and customs rules.</li>
+          <li class="card rounded-2xl p-4" data-i18n="terms_item2">Companions agree to share itinerary updates and emergency contacts.</li>
+          <li class="card rounded-2xl p-4" data-i18n="terms_item3">Escrow releases only after confirmation and photo proof.</li>
+          <li class="card rounded-2xl p-4" data-i18n="terms_item4">Violation of safety policies results in account suspension.</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+  <footer class="border-t border-white/5 py-10">
+    <div class="section-shell grid gap-6 md:grid-cols-4">
+      <div class="space-y-3">
+        <p class="text-lg font-semibold text-white">YouTripio</p>
+        <p class="text-sm text-[color:var(--color-muted)]" data-i18n="footer_tagline">Travel cargo and companion network built for trust.</p>
+      </div>
+      <div>
+        <p class="text-xs uppercase tracking-[0.25em] text-[color:var(--color-muted)]" data-i18n="footer_quicklinks">Quick links</p>
+        <div class="mt-3 flex flex-col gap-2 text-sm text-[color:var(--color-muted)]">
+          <a href="#about" data-i18n="footer_link_about">About</a>
+          <a href="#services" data-i18n="footer_link_services">Services</a>
+          <a href="#pricing" data-i18n="footer_link_pricing">Pricing</a>
+          <a href="#blog" data-i18n="footer_link_blog">Blog</a>
+        </div>
+      </div>
+      <div>
+        <p class="text-xs uppercase tracking-[0.25em] text-[color:var(--color-muted)]" data-i18n="footer_product">Product</p>
+        <div class="mt-3 flex flex-col gap-2 text-sm text-[color:var(--color-muted)]">
+          <a href="#dashboard" data-i18n="footer_link_docs">Dashboard</a>
+          <a href="#control" data-i18n="footer_link_support">Control center</a>
+          <a href="#terms" data-i18n="footer_link_terms">Terms</a>
+          <a href="#faq" data-i18n="footer_link_security">Safety</a>
+        </div>
+      </div>
+      <div>
+        <p class="text-xs uppercase tracking-[0.25em] text-[color:var(--color-muted)]" data-i18n="footer_company">Company</p>
+        <div class="mt-3 flex flex-col gap-2 text-sm text-[color:var(--color-muted)]">
+          <a href="#contact" data-i18n="footer_link_contact">Contact</a>
+          <a href="#auth" data-i18n="footer_link_support">Support</a>
+          <a href="#terms" data-i18n="footer_link_terms">Legal</a>
+        </div>
+      </div>
+    </div>
+    <div class="section-shell mt-8 flex flex-wrap items-center justify-between gap-4 text-xs text-[color:var(--color-muted)]">
+      <p data-i18n="footer_rights">© 2026 YouTripio. All rights reserved.</p>
+      <div class="flex gap-4">
+        <span>Instagram</span>
+        <span>Telegram</span>
+        <span>LinkedIn</span>
+      </div>
+    </div>
+  </footer>
+  <script>
+    const i18n = {
+      en: {
+        nav_tagline: "Travel Cargo & Companion Network",
+        nav_home: "Home",
+        nav_about: "About",
+        nav_services: "Services",
+        nav_how: "How It Works",
+        nav_market: "Marketplace",
+        nav_dashboard: "Dashboard",
+        nav_blog: "Blog",
+        nav_contact: "Contact",
+        btn_view_demo: "View demo",
+        theme_dark_label: "Dark mode",
+        theme_light_label: "Light mode",
+        hero_kicker: "Travel. Send. Meet.",
+        hero_title: "Turn every trip into trusted cargo delivery and companion journeys.",
+        hero_subtitle: "YouTripio connects travelers with verified parcel requests and companions, giving you more control, more earnings, and safer travel experiences.",
+        btn_get_started: "Get started",
+        btn_learn_more: "Learn more",
+        hero_stat1: "Trips shared",
+        hero_stat2: "Matched in 6h",
+        hero_stat3: "Traveler trust",
+        hero_panel_title: "Live Trip Dashboard",
+        hero_panel_status: "Online",
+        hero_card_1_title: "Dubai ? Berlin",
+        hero_card_1_body: "3 parcels, 2 companions, 18kg available.",
+        hero_card_2_title: "Toronto ? Istanbul",
+        hero_card_2_body: "Companion match ready, fast-track check-in.",
+        hero_card_3_title: "Seoul ? Paris",
+        hero_card_3_body: "Fashion parcel delivered with 4.8? rating.",
+        tag_verified: "Verified",
+        tag_insured: "Insured",
+        tag_priority: "Priority",
+        tag_premium: "Premium",
+        tag_companion: "Companion",
+        hero_float_title: "Revenue",
+        hero_float_body: "Last 30 days",
+        about_kicker: "About YouTripio",
+        about_title: "A trusted network for travelers, senders, and companions.",
+        about_body: "YouTripio turns unused luggage space into verified delivery lanes, while matching travelers who want a safer, social journey. Built for transparency, identity verification, and real-time trip intelligence.",
+        about_stat1: "Cities connected",
+        about_stat2: "On-time deliveries",
+        about_stat3: "Safety support",
+        about_stat4: "Verified companions",
+        services_kicker: "Services",
+        services_title: "Everything you need to move smarter.",
+        services_cta: "Compare plans",
+        service_1_title: "Cargo Carry",
+        service_1_body: "List your available baggage space and earn on verified parcels.",
+        service_2_title: "Companion Match",
+        service_2_body: "Find trusted travel companions based on route, interests, and timing.",
+        service_3_title: "Smart Routing",
+        service_3_body: "Auto-suggest optimal meeting points, handoff times, and pickup windows.",
+        service_4_title: "Insurance Shield",
+        service_4_body: "Every parcel is protected with coverage and a dispute workflow.",
+        service_5_title: "Travel Wallet",
+        service_5_body: "Hold payouts, split fees, and withdraw earnings instantly.",
+        service_6_title: "Safety Center",
+        service_6_body: "24/7 monitoring, live check-ins, and trusted emergency contacts.",
+        how_kicker: "How it works",
+        how_title: "Three steps to a safer trip.",
+        how_body: "Publish your trip or request, verify identities, and meet with confidence. Everything stays visible in your dashboard.",
+        how_step1_title: "1. Create",
+        how_step1_body: "Share trip dates, capacity, or parcel details.",
+        how_step2_title: "2. Match",
+        how_step2_body: "Review verified profiles and confirm handoff points.",
+        how_step3_title: "3. Track",
+        how_step3_body: "Follow updates, live chat, and payout release.",
+        market_kicker: "Marketplace",
+        market_title: "Live requests and available capacity.",
+        market_tag1: "Priority",
+        market_tag2: "Same-day",
+        market_tag3: "Companion",
+        market_item1_title: "Electronics Parcel",
+        market_item1_body: "Shanghai ? Rome · 3kg · Secure wrap.",
+        market_item2_title: "Fashion Sample",
+        market_item2_body: "Milan ? Dubai · 2kg · Premium handling.",
+        market_item3_title: "Family Companion",
+        market_item3_body: "Los Angeles ? Tokyo · 2 seats · Shared lounge.",
+        dashboard_kicker: "Dashboard",
+        dashboard_title: "Everything important in one view.",
+        dashboard_cta: "Open app",
+        dashboard_overview_title: "Trip overview",
+        dashboard_overview_body: "Your active routes, parcels, and companions.",
+        dashboard_filter_all: "All",
+        dashboard_filter_active: "Active",
+        dashboard_filter_pending: "Pending",
+        dashboard_trip1: "Berlin ? Lisbon",
+        dashboard_trip1_status: "On track",
+        dashboard_trip1_body: "2 parcels, 1 companion · Check-in 16:40.",
+        dashboard_trip2: "Doha ? Bangkok",
+        dashboard_trip2_status: "Need approval",
+        dashboard_trip2_body: "Parcel worth $380 awaiting verification.",
+        dashboard_trip3: "Toronto ? Athens",
+        dashboard_trip3_status: "Matched",
+        dashboard_trip3_body: "Companion seat booked, lounge access shared.",
+        dashboard_wallet_title: "Wallet balance",
+        dashboard_wallet_body: "Next payout in 2 days.",
+        dashboard_insights_title: "Impact",
+        dashboard_insights_body: "9.2kg CO2 saved this month by sharing capacity.",
+        dashboard_support_title: "Support",
+        dashboard_support_body: "Safety team online 24/7 for your active routes.",
+        control_kicker: "Control Center",
+        control_title: "Command every route with full visibility.",
+        control_body: "Monitor active matches, escalation alerts, verification status, and payouts in real time.",
+        control_tag1: "Risk scoring",
+        control_tag2: "Live chat",
+        control_tag3: "Incident log",
+        control_panel_title: "Operations overview",
+        control_item1: "Verification queue",
+        control_item2: "Active routes",
+        control_item3: "Escalations",
+        requests_kicker: "Requests",
+        requests_title: "Parcel requests ready for matching.",
+        requests_cta: "Post a request",
+        request_1_title: "Medical kit",
+        request_1_body: "Doha ? Nairobi · 4kg · Needs cooling pack.",
+        request_2_title: "Art print roll",
+        request_2_body: "Paris ? Seoul · 2kg · Flat carry required.",
+        request_3_title: "Gift hamper",
+        request_3_body: "Miami ? Bogotá · 5kg · Weekend delivery.",
+        trips_kicker: "Trips",
+        trips_title: "Available travel capacity.",
+        trips_cta: "Find companion",
+        trip_1_title: "Jakarta ? Madrid",
+        trip_1_body: "8kg free · 2 stopovers · Trusted traveler.",
+        trip_2_title: "Istanbul ? Oslo",
+        trip_2_body: "5kg free · Lounge access · Early check-in.",
+        trip_3_title: "Mexico City ? Vancouver",
+        trip_3_body: "12kg free · Priority boarding · Verified ID.",
+        cargo_kicker: "Send Cargo",
+        cargo_title: "Create a secure parcel request.",
+        cargo_body: "Describe your shipment, choose delivery window, and get matched with a verified traveler.",
+        form_from: "From city",
+        form_to: "To city",
+        form_weight: "Weight",
+        form_date: "Pickup date",
+        form_details: "Details",
+        form_submit: "Publish request",
+        form_from_ph: "Dubai",
+        form_to_ph: "Berlin",
+        form_weight_ph: "3kg",
+        form_date_ph: "Aug 14",
+        form_details_ph: "Fragile, sealed, insurance required.",
+        companion_destination: "Destination",
+        companion_destination_ph: "Singapore",
+        companion_dates: "Dates",
+        companion_dates_ph: "Sep 02 - Sep 10",
+        companion_interests: "Interests",
+        companion_interests_ph: "Food, museums, hiking",
+        companion_submit: "Find companions",
+        companion_kicker: "Companion Match",
+        companion_title: "Travel with people you trust.",
+        companion_body: "Pick companions based on shared interests, travel goals, and verified social proof.",
+        companion_tag1: "Verified ID",
+        companion_tag2: "Shared itinerary",
+        companion_tag3: "Trusted reviews",
+        pricing_kicker: "Pricing",
+        pricing_title: "Plans for solo travelers to global teams.",
+        pricing_note: "All plans include verified profiles and escrow protection.",
+        pricing_basic: "Starter",
+        pricing_basic_body: "Perfect for occasional deliveries.",
+        pricing_pro: "Pro",
+        pricing_pro_body: "Priority matches and insurance uplift.",
+        pricing_team: "Enterprise",
+        pricing_team_body: "Dedicated account and SLA coverage.",
+        testimonial_1_title: "“Safe, fast, and transparent.”",
+        testimonial_1_body: "I delivered two parcels and matched a companion within hours.",
+        testimonial_2_title: "“The control center is brilliant.”",
+        testimonial_2_body: "We can track verification and payouts in real time.",
+        testimonial_3_title: "“Feels like a travel community.”",
+        testimonial_3_body: "I finally found companions who share my pace and interests.",
+        blog_kicker: "Blog",
+        blog_title: "Stories from the YouTripio community.",
+        blog_cta: "Read policy",
+        blog_post1_tag: "Logbook",
+        blog_post1_title: "How travelers earn $500 monthly",
+        blog_post1_body: "Tips for packing, communication, and safety workflows.",
+        blog_post2_tag: "Guide",
+        blog_post2_title: "Companion matching best practices",
+        blog_post2_body: "Use filters to align schedules and travel comfort.",
+        blog_post3_tag: "Safety",
+        blog_post3_title: "What our verification includes",
+        blog_post3_body: "Government ID, selfie checks, and trip history signals.",
+        faq_kicker: "FAQ",
+        faq_title: "Common questions, clear answers.",
+        faq_note: "Support reply time: under 2 hours.",
+        faq_1_q: "How do you verify travelers?",
+        faq_1_a: "We verify IDs, past trip activity, and require a live selfie check.",
+        faq_2_q: "Is parcel insurance included?",
+        faq_2_a: "Yes, all deliveries include coverage with optional upgrades.",
+        faq_3_q: "Can I cancel after matching?",
+        faq_3_a: "You can cancel within the grace window without fees.",
+        faq_4_q: "Do you support group travel?",
+        faq_4_a: "Yes, create a group itinerary and invite companions.",
+        contact_kicker: "Contact",
+        contact_title: "Let’s build your next journey.",
+        contact_body: "Reach out for partnerships, enterprise onboarding, or support questions.",
+        contact_location: "Dubai · Istanbul · Toronto",
+        contact_name: "Name",
+        contact_name_ph: "Alex Morgan",
+        contact_email: "Email",
+        contact_email_ph: "alex@youtripio.com",
+        contact_subject: "Subject",
+        contact_subject_ph: "Partnership inquiry",
+        contact_message: "Message",
+        contact_message_ph: "Tell us about your goals.",
+        contact_submit: "Send message",
+        auth_kicker: "Access",
+        auth_title: "Sign in to manage your trips.",
+        auth_body: "Create an account or log in to unlock matching, payouts, and safety tools.",
+        auth_note: "This is a static demo layout for GitHub Pages.",
+        auth_signin: "Sign in",
+        auth_signup: "Create account",
+        auth_email_ph: "Email",
+        auth_password_ph: "Password",
+        auth_name_ph: "Full name",
+        auth_signin_btn: "Continue",
+        auth_signup_btn: "Join YouTripio",
+        terms_kicker: "Terms",
+        terms_title: "Transparent policies that protect everyone.",
+        terms_body: "YouTripio relies on verified identities, escrow payouts, and safety standards.",
+        terms_item1: "All parcels must be declared and comply with airline and customs rules.",
+        terms_item2: "Companions agree to share itinerary updates and emergency contacts.",
+        terms_item3: "Escrow releases only after confirmation and photo proof.",
+        terms_item4: "Violation of safety policies results in account suspension.",
+        footer_tagline: "Travel cargo and companion network built for trust.",
+        footer_quicklinks: "Quick links",
+        footer_product: "Product",
+        footer_company: "Company",
+        footer_rights: "© 2026 YouTripio. All rights reserved.",
+        footer_link_about: "About",
+        footer_link_services: "Services",
+        footer_link_pricing: "Pricing",
+        footer_link_blog: "Blog",
+        footer_link_docs: "Dashboard",
+        footer_link_support: "Support",
+        footer_link_terms: "Terms",
+        footer_link_security: "Safety",
+        footer_link_contact: "Contact"
+      },
+      fa: {
+        nav_tagline: "شبکه حمل بار و همراه سفر",
+        nav_home: "خانه",
+        nav_about: "درباره ما",
+        nav_services: "خدمات",
+        nav_how: "نحوه کار",
+        nav_market: "بازار",
+        nav_dashboard: "داشبورد",
+        nav_blog: "بلاگ",
+        nav_contact: "تماس",
+        btn_view_demo: "نمایش دمو",
+        theme_dark_label: "حالت تاریک",
+        theme_light_label: "حالت روشن",
+        hero_kicker: "سفر. ارسال. همراهی.",
+        hero_title: "هر سفر را به یک مسیر امن برای حمل بار و همراهی تبدیل کنید.",
+        hero_subtitle: "YouTripio مسافران را با درخواست های تأیید شده و همراهان هم مسیر متصل می کند تا کنترل، درآمد و امنیت بیشتری داشته باشید.",
+        btn_get_started: "شروع کنید",
+        btn_learn_more: "بیشتر بدانید",
+        hero_stat1: "سفرهای مشترک",
+        hero_stat2: "هماهنگی در ۶ ساعت",
+        hero_stat3: "اعتماد مسافران",
+        hero_panel_title: "داشبورد سفر زنده",
+        hero_panel_status: "آنلاین",
+        hero_card_1_title: "دبی → برلین",
+        hero_card_1_body: "۳ بسته، ۲ همراه، ۱۸ کیلو ظرفیت.",
+        hero_card_2_title: "تورنتو → استانبول",
+        hero_card_2_body: "همراه آماده، چک این سریع.",
+        hero_card_3_title: "سئول → پاریس",
+        hero_card_3_body: "تحویل موفق با امتیاز ۴.۸ ستاره.",
+        tag_verified: "تأیید شده",
+        tag_insured: "بیمه شده",
+        tag_priority: "اولویت دار",
+        tag_premium: "پریمیوم",
+        tag_companion: "همراه",
+        hero_float_title: "درآمد",
+        hero_float_body: "۳۰ روز گذشته",
+        about_kicker: "درباره یوتریپیو",
+        about_title: "شبکه ای مطمئن برای مسافران، فرستندگان و همراهان.",
+        about_body: "YouTripio ظرفیت آزاد چمدان را به مسیرهای حمل مطمئن تبدیل می کند و همراهان هم مسیر را هوشمندانه می یابد.",
+        about_stat1: "شهرهای متصل",
+        about_stat2: "تحویل به موقع",
+        about_stat3: "پشتیبانی امنیتی",
+        about_stat4: "همراهان تأیید شده",
+        services_kicker: "خدمات",
+        services_title: "همه چیز برای حرکت هوشمندانه.",
+        services_cta: "مقایسه پلن ها",
+        service_1_title: "حمل بار",
+        service_1_body: "فضای خالی چمدان را ثبت و درآمد کسب کنید.",
+        service_2_title: "هماهنگی همراه",
+        service_2_body: "همراهان قابل اعتماد را بر اساس مسیر و زمان پیدا کنید.",
+        service_3_title: "مسیر هوشمند",
+        service_3_body: "نقاط ملاقات و زمان تحویل بهینه پیشنهاد می شود.",
+        service_4_title: "سپر بیمه",
+        service_4_body: "هر بسته با بیمه و فرآیند حل اختلاف محافظت می شود.",
+        service_5_title: "کیف پول سفر",
+        service_5_body: "پرداخت ها را نگه دارید و سریع برداشت کنید.",
+        service_6_title: "مرکز امنیت",
+        service_6_body: "پایش ۲۴ ساعته و تماس اضطراری.",
+        how_kicker: "نحوه کار",
+        how_title: "سه گام تا سفر امن تر.",
+        how_body: "سفر یا درخواست خود را ثبت کنید و همه چیز را در داشبورد ببینید.",
+        how_step1_title: "۱. ثبت",
+        how_step1_body: "زمان، ظرفیت یا جزئیات بسته را وارد کنید.",
+        how_step2_title: "۲. تطبیق",
+        how_step2_body: "پروفایل های تأیید شده را بررسی کنید.",
+        how_step3_title: "۳. پیگیری",
+        how_step3_body: "به روزرسانی ها و پرداخت را دنبال کنید.",
+        market_kicker: "بازار",
+        market_title: "درخواست ها و ظرفیت های زنده.",
+        market_tag1: "اولویت دار",
+        market_tag2: "همان روز",
+        market_tag3: "همراه",
+        market_item1_title: "بسته الکترونیک",
+        market_item1_body: "شانگهای → رم · ۳ کیلو · بسته بندی امن.",
+        market_item2_title: "نمونه مد",
+        market_item2_body: "میلان → دبی · ۲ کیلو · رسیدگی ویژه.",
+        market_item3_title: "همراه خانوادگی",
+        market_item3_body: "لس آنجلس → توکیو · ۲ صندلی · سالن مشترک.",
+        dashboard_kicker: "داشبورد",
+        dashboard_title: "همه چیز مهم در یک نما.",
+        dashboard_cta: "باز کردن اپ",
+        dashboard_overview_title: "نمای کلی سفر",
+        dashboard_overview_body: "مسیرهای فعال، بسته ها و همراهان شما.",
+        dashboard_filter_all: "همه",
+        dashboard_filter_active: "فعال",
+        dashboard_filter_pending: "در انتظار",
+        dashboard_trip1: "برلین → لیسبون",
+        dashboard_trip1_status: "در مسیر",
+        dashboard_trip1_body: "۲ بسته، ۱ همراه · چک این ۱۶:۴۰.",
+        dashboard_trip2: "دوحه → بانکوک",
+        dashboard_trip2_status: "نیاز به تأیید",
+        dashboard_trip2_body: "بسته با ارزش ۳۸۰ دلار در انتظار.",
+        dashboard_trip3: "تورنتو → آتن",
+        dashboard_trip3_status: "هماهنگ شد",
+        dashboard_trip3_body: "رزرو همراه انجام شد.",
+        dashboard_wallet_title: "موجودی کیف پول",
+        dashboard_wallet_body: "پرداخت بعدی تا ۲ روز دیگر.",
+        dashboard_insights_title: "اثرگذاری",
+        dashboard_insights_body: "۹.۲ کیلو CO₂ این ماه صرفه جویی شد.",
+        dashboard_support_title: "پشتیبانی",
+        dashboard_support_body: "تیم امنیتی ۲۴ ساعته آنلاین است.",
+        control_kicker: "مرکز کنترل",
+        control_title: "هر مسیر را با دید کامل مدیریت کنید.",
+        control_body: "تطبیق های فعال، هشدارها و پرداخت ها را لحظه ای رصد کنید.",
+        control_tag1: "امتیاز ریسک",
+        control_tag2: "گفتگوی زنده",
+        control_tag3: "گزارش حادثه",
+        control_panel_title: "نمای عملیات",
+        control_item1: "صف تأیید",
+        control_item2: "مسیرهای فعال",
+        control_item3: "هشدارها",
+        requests_kicker: "درخواست ها",
+        requests_title: "درخواست های آماده برای تطبیق.",
+        requests_cta: "ثبت درخواست",
+        request_1_title: "کیت پزشکی",
+        request_1_body: "دوحه → نایروبی · ۴ کیلو · نیاز به خنک نگه داشتن.",
+        request_2_title: "رول چاپ هنری",
+        request_2_body: "پاریس → سئول · ۲ کیلو · حمل تخت لازم است.",
+        request_3_title: "بسته هدیه",
+        request_3_body: "میامی → بوگوتا · ۵ کیلو · تحویل آخر هفته.",
+        trips_kicker: "سفرها",
+        trips_title: "ظرفیت های سفر موجود.",
+        trips_cta: "یافتن همراه",
+        trip_1_title: "جاکارتا → مادرید",
+        trip_1_body: "۸ کیلو آزاد · ۲ توقف · مسافر مطمئن.",
+        trip_2_title: "استانبول → اسلو",
+        trip_2_body: "۵ کیلو آزاد · دسترسی لانژ · چک این زودهنگام.",
+        trip_3_title: "مکزیکو سیتی → ونکوور",
+        trip_3_body: "۱۲ کیلو آزاد · سوار شدن اولویت دار · شناسه تأیید شده.",
+        cargo_kicker: "ارسال بار",
+        cargo_title: "یک درخواست امن برای بسته بسازید.",
+        cargo_body: "جزئیات ارسال را ثبت کنید و با مسافر تأیید شده تطبیق شوید.",
+        form_from: "مبدا",
+        form_to: "مقصد",
+        form_weight: "وزن",
+        form_date: "تاریخ دریافت",
+        form_details: "جزئیات",
+        form_submit: "انتشار درخواست",
+        form_from_ph: "دبی",
+        form_to_ph: "برلین",
+        form_weight_ph: "۳ کیلو",
+        form_date_ph: "۱۴ مرداد",
+        form_details_ph: "شکننده، مهر و موم شده، نیازمند بیمه.",
+        companion_destination: "مقصد",
+        companion_destination_ph: "سنگاپور",
+        companion_dates: "تاریخ ها",
+        companion_dates_ph: "۲ شهریور - ۱۰ شهریور",
+        companion_interests: "علایق",
+        companion_interests_ph: "غذا، موزه، طبیعت گردی",
+        companion_submit: "یافتن همراه",
+        companion_kicker: "هماهنگی همراه",
+        companion_title: "با افراد مطمئن سفر کنید.",
+        companion_body: "همراهان را بر اساس علایق و برنامه مشترک انتخاب کنید.",
+        companion_tag1: "شناسه تأیید شده",
+        companion_tag2: "برنامه مشترک",
+        companion_tag3: "نظرهای معتبر",
+        pricing_kicker: "قیمت گذاری",
+        pricing_title: "پلن ها برای مسافر تنها تا تیم جهانی.",
+        pricing_note: "تمام پلن ها شامل تأیید هویت و امانت هستند.",
+        pricing_basic: "پایه",
+        pricing_basic_body: "مناسب ارسال های محدود.",
+        pricing_pro: "حرفه ای",
+        pricing_pro_body: "تطبیق سریع تر و بیمه بیشتر.",
+        pricing_team: "سازمانی",
+        pricing_team_body: "حساب اختصاصی و SLA کامل.",
+        testimonial_1_title: "«امن، سریع و شفاف.»",
+        testimonial_1_body: "دو بسته را تحویل دادم و در چند ساعت همراه پیدا کردم.",
+        testimonial_2_title: "«مرکز کنترل فوق العاده است.»",
+        testimonial_2_body: "تأییدها و پرداخت ها را لحظه ای می بینیم.",
+        testimonial_3_title: "«حس یک جامعه سفر.»",
+        testimonial_3_body: "بالاخره همراهانی هم سلیقه پیدا کردم.",
+        blog_kicker: "بلاگ",
+        blog_title: "داستان هایی از جامعه یوتریپیو.",
+        blog_cta: "مشاهده قوانین",
+        blog_post1_tag: "لاگ سفر",
+        blog_post1_title: "چگونه مسافران ماهانه ۵۰۰ دلار درآمد دارند",
+        blog_post1_body: "نکات بسته بندی، ارتباط و ایمنی.",
+        blog_post2_tag: "راهنما",
+        blog_post2_title: "بهترین روش های پیدا کردن همراه",
+        blog_post2_body: "فیلترها را برای همخوانی برنامه استفاده کنید.",
+        blog_post3_tag: "امنیت",
+        blog_post3_title: "فرآیند تأیید ما شامل چیست",
+        blog_post3_body: "شناسه دولتی، سلفی زنده و سابقه سفر.",
+        faq_kicker: "پرسش های متداول",
+        faq_title: "پاسخ های شفاف به سوالات رایج.",
+        faq_note: "زمان پاسخ پشتیبانی: کمتر از ۲ ساعت.",
+        faq_1_q: "چطور مسافران را تأیید می کنید؟",
+        faq_1_a: "شناسه، سابقه سفر و سلفی زنده بررسی می شود.",
+        faq_2_q: "بیمه بسته شامل می شود؟",
+        faq_2_a: "بله، همه ارسال ها شامل پوشش پایه هستند.",
+        faq_3_q: "می توانم بعد از تطبیق لغو کنم؟",
+        faq_3_a: "در بازه مشخص بدون هزینه می توانید لغو کنید.",
+        faq_4_q: "سفر گروهی را پشتیبانی می کنید؟",
+        faq_4_a: "بله، برنامه گروهی بسازید و همراه دعوت کنید.",
+        contact_kicker: "تماس",
+        contact_title: "سفر بعدی خود را با ما بسازید.",
+        contact_body: "برای همکاری، آنبوردینگ سازمانی یا پشتیبانی پیام بدهید.",
+        contact_location: "دبی · استانبول · تورنتو",
+        contact_name: "نام",
+        contact_name_ph: "الکس مورگان",
+        contact_email: "ایمیل",
+        contact_email_ph: "alex@youtripio.com",
+        contact_subject: "موضوع",
+        contact_subject_ph: "درخواست همکاری",
+        contact_message: "پیام",
+        contact_message_ph: "درباره هدف خود بنویسید.",
+        contact_submit: "ارسال پیام",
+        auth_kicker: "دسترسی",
+        auth_title: "برای مدیریت سفرها وارد شوید.",
+        auth_body: "حساب بسازید یا وارد شوید تا تطبیق و پرداخت فعال شود.",
+        auth_note: "این یک دمو استاتیک برای GitHub Pages است.",
+        auth_signin: "ورود",
+        auth_signup: "ایجاد حساب",
+        auth_email_ph: "ایمیل",
+        auth_password_ph: "رمز عبور",
+        auth_name_ph: "نام کامل",
+        auth_signin_btn: "ادامه",
+        auth_signup_btn: "عضویت در یوتریپیو",
+        terms_kicker: "قوانین",
+        terms_title: "سیاست های شفاف برای محافظت از همه.",
+        terms_body: "یوتریپیو بر تأیید هویت و پرداخت امانی متکی است.",
+        terms_item1: "همه بسته ها باید مطابق قوانین پرواز و گمرک باشند.",
+        terms_item2: "همراهان باید مسیر و اطلاعات اضطراری را به اشتراک بگذارند.",
+        terms_item3: "پرداخت امانی پس از تأیید و مدرک آزاد می شود.",
+        terms_item4: "نقض قوانین امنیتی موجب تعلیق حساب می شود.",
+        footer_tagline: "شبکه حمل بار و همراه سفر بر پایه اعتماد.",
+        footer_quicklinks: "لینک های سریع",
+        footer_product: "محصول",
+        footer_company: "شرکت",
+        footer_rights: "© ۲۰۲۶ یوتریپیو. همه حقوق محفوظ است.",
+        footer_link_about: "درباره ما",
+        footer_link_services: "خدمات",
+        footer_link_pricing: "قیمت گذاری",
+        footer_link_blog: "بلاگ",
+        footer_link_docs: "داشبورد",
+        footer_link_support: "پشتیبانی",
+        footer_link_terms: "قوانین",
+        footer_link_security: "امنیت",
+        footer_link_contact: "تماس"
+      }
+    }
+
+    const LANG_KEY = "youtripio-language"
+    const THEME_KEY = "youtripio-theme"
+
+    function updateThemeLabel() {
+      const label = document.getElementById("themeLabel")
+      if (!label) return
+      const lang = document.documentElement.lang === "fa" ? "fa" : "en"
+      const isDark = document.documentElement.classList.contains("dark")
+      label.textContent = isDark ? i18n[lang].theme_dark_label : i18n[lang].theme_light_label
+    }
+
+    function applyLanguage(lang) {
+      const map = i18n[lang] || i18n.en
+      document.documentElement.lang = lang
+      document.documentElement.dir = lang === "fa" ? "rtl" : "ltr"
+      document.body.classList.toggle("rtl-text", lang === "fa")
+      document.querySelectorAll("[data-i18n]").forEach((el) => {
+        const key = el.getAttribute("data-i18n")
+        if (key && map[key]) {
+          el.textContent = map[key]
+        }
+      })
+      document.querySelectorAll("[data-i18n-placeholder]").forEach((el) => {
+        const key = el.getAttribute("data-i18n-placeholder")
+        if (key && map[key]) {
+          el.setAttribute("placeholder", map[key])
+        }
+      })
+      const langLabel = document.getElementById("langLabel")
+      if (langLabel) {
+        langLabel.textContent = lang === "fa" ? "FA" : "EN"
+      }
+      updateThemeLabel()
+    }
+
+    function applyTheme(theme) {
+      document.documentElement.classList.toggle("dark", theme === "dark")
+      document.documentElement.classList.toggle("light", theme === "light")
+      localStorage.setItem(THEME_KEY, theme)
+      updateThemeLabel()
+    }
+
+    const savedLang = localStorage.getItem(LANG_KEY) || "en"
+    const savedTheme = localStorage.getItem(THEME_KEY) || "dark"
+
+    applyTheme(savedTheme)
+    applyLanguage(savedLang)
+
+    const langToggle = document.getElementById("langToggle")
+    const themeToggle = document.getElementById("themeToggle")
+
+    if (langToggle) {
+      langToggle.addEventListener("click", () => {
+        const next = document.documentElement.lang === "fa" ? "en" : "fa"
+        localStorage.setItem(LANG_KEY, next)
+        applyLanguage(next)
+      })
+    }
+
+    if (themeToggle) {
+      themeToggle.addEventListener("click", () => {
+        const next = document.documentElement.classList.contains("dark") ? "light" : "dark"
+        applyTheme(next)
+      })
+    }
+  </script>
+</body>
+</html>
+
+

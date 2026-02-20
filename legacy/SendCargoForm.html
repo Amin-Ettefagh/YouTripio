@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>YouTripia - Profile</title>
+    <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.js"></script>
+    <script defer src="script.js"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      @media (min-width: 1024px) {
+        body {
+          height: 100vh;
+          overflow: hidden;
+        }
+      }
+    </style>
+  </head>
+  <body
+    class="bg-white dark:bg-gray-900 text-black dark:text-white transition duration-500 overflow-hidden"
+  >
+    <!-- Header Section -->
+    <header
+      class="flex justify-between items-center p-5 bg-gray-300 dark:bg-gray-800"
+    >
+      <h1 class="text-xl font-bold">YouTripia</h1>
+      <h2 class="text-xl">Dashboard - Profile</h2>
+    </header>
+
+    <!-- Form Section -->
+    <div class="flex justify-center items-center h-screen">
+      <form
+        id="trip-form"
+        class="bg-gray-200 dark:bg-gray-700 rounded-lg shadow-lg p-10 w-full max-w-md"
+      >
+        <h3 class="text-center text-2xl mb-5 font-semibold">
+          Form for Registering a Parcel Advertisement for Transportation Needs
+        </h3>
+
+        <!-- Departure Date -->
+        <label class="block mb-2 font-medium">Departure Time</label>
+        <div class="grid grid-cols-4 gap-4 mb-5">
+          <input
+            type="number"
+            id="year"
+            placeholder="Year"
+            class="p-2 border border-gray-400 rounded"
+          />
+          <input
+            type="number"
+            id="month"
+            placeholder="Month"
+            class="p-2 border border-gray-400 rounded"
+          />
+          <input
+            type="number"
+            id="day"
+            placeholder="Day"
+            class="p-2 border border-gray-400 rounded"
+          />
+          <input
+            type="number"
+            id="Time"
+            placeholder="Time"
+            class="p-2 border border-gray-400 rounded"
+          />
+        </div>
+
+        <!-- Origin -->
+        <label class="block mb-2 font-medium">Origin</label>
+        <div class="grid grid-cols-2 gap-4 mb-5">
+          <input
+            type="text"
+            id="origin-country"
+            placeholder="Country"
+            class="p-2 border border-gray-400 rounded"
+          />
+          <input
+            type="text"
+            id="origin-city"
+            placeholder="City"
+            class="p-2 border border-gray-400 rounded"
+          />
+        </div>
+
+        <!-- Destination -->
+        <label class="block mb-2 font-medium">Destination</label>
+        <div class="grid grid-cols-2 gap-4 mb-5">
+          <input
+            type="text"
+            id="destination-country"
+            placeholder="Country"
+            class="p-2 border border-gray-400 rounded"
+          />
+          <input
+            type="text"
+            id="destination-city"
+            placeholder="City"
+            class="p-2 border border-gray-400 rounded"
+          />
+        </div>
+
+        <!-- Dimension -->
+        <label class="block mb-2 font-medium">Dimension</label>
+        <div class="grid grid-cols-3 gap-4 mb-5">
+          <input
+            type="number"
+            placeholder="Cm"
+            class="p-2 border border-gray-400 rounded"
+          />
+          <input
+            type="number"
+            placeholder="Cm"
+            class="p-2 border border-gray-400 rounded"
+          />
+          <input
+            type="number"
+            placeholder="Cm"
+            class="p-2 border border-gray-400 rounded"
+          />
+        </div>
+
+        <!-- Weight -->
+        <label class="block mb-2 font-medium">Weight</label>
+        <input
+          type="number"
+          placeholder="Kg"
+          class="p-2 border border-gray-400 rounded mb-5"
+        />
+
+        <!-- Parcel Type -->
+        <label class="block mb-2 font-medium">Parcel Type</label>
+        <input
+          type="text"
+          id="cargo-type"
+          placeholder="like pet ..."
+          class="p-2 border border-gray-400 rounded mb-5"
+        />
+
+        <!-- Price -->
+        <label class="block mb-2 font-medium">Price</label>
+        <input
+          type="number"
+          id="price"
+          placeholder="$"
+          class="p-2 border border-gray-400 rounded mb-5"
+        />
+
+        <!-- Submit Button -->
+        <button
+          type="submit"
+          class="w-full bg-green-500 text-white py-2 rounded-lg hover:bg-green-600 transition duration-300 shadow-lg"
+        >
+          Submit
+        </button>
+
+        <!-- Loading Animation -->
+        <div
+          id="loading"
+          class="modern-loading hidden fixed top-0 left-0 w-full h-full flex justify-center items-center bg-gray-900 bg-opacity-50"
+        >
+          <div class="text-center">
+            <dotlottie-player
+              src="https://lottie.host/f19da744-98b3-478d-8baf-fb75d7b250e1/scVOIhGvoy.json"
+              background="transparent"
+              speed="1"
+              style="width: 300px; height: 300px"
+              loop
+              autoplay
+            ></dotlottie-player>
+            <div class="loading-text text-white mt-4">
+              Processing your request...
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <!-- Floating Back Button -->
+    <button
+      id="back-button"
+      class="fixed bottom-5 right-5 bg-gray-500 text-white px-4 py-2 rounded-full shadow-lg hover:bg-blue-500 transition duration-300"
+    >
+      Back
+    </button>
+
+    <!-- Toast Notification -->
+    <div
+      id="toast"
+      class="fixed top-5 right-5 hidden bg-red-500 text-white py-2 px-4 rounded shadow-lg"
+    >
+      <p id="toast-message"></p>
+    </div>
+  </body>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const form = document.getElementById("trip-form");
+      const loadingDiv = document.getElementById("loading");
+      const backButton = document.getElementById("back-button");
+      const toast = document.getElementById("toast");
+      const toastMessage = document.getElementById("toast-message");
+
+      // Function to show toast notification
+      function showToast(message, color = "bg-red-500") {
+        toastMessage.textContent = message;
+        toast.className = `fixed top-5 right-5 ${color} text-white py-8 px-8 rounded shadow-lg`;
+        toast.classList.remove("hidden");
+
+        setTimeout(() => {
+          toast.classList.add("hidden");
+        }, 3000);
+      }
+
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        // Get form values
+        const year = document.getElementById("year").value;
+        const month = document.getElementById("month").value;
+        const day = document.getElementById("day").value;
+        const hour = document.getElementById("Time").value;
+        const originCountry = document.getElementById("origin-country").value;
+        const originCity = document.getElementById("origin-city").value;
+        const destinationCountry = document.getElementById(
+          "destination-country"
+        ).value;
+        const destinationCity =
+          document.getElementById("destination-city").value;
+        const price = document.getElementById("price").value;
+
+        // Validate form
+        if (
+          !year ||
+          !month ||
+          !day ||
+          !hour ||
+          !originCountry ||
+          !originCity ||
+          !destinationCountry ||
+          !destinationCity ||
+          !price
+        ) {
+          showToast("Please fill in all fields!", "bg-red-500");
+          return;
+        }
+
+        // Show loading animation
+        loadingDiv.classList.remove("hidden");
+
+        // Simulate processing time
+        setTimeout(() => {
+          loadingDiv.classList.add("hidden");
+          showToast("Form submitted successfully!", "bg-green-500");
+        }, 3000);
+      });
+
+      // Back button functionality
+      backButton.addEventListener("click", () => {
+        window.location.href = "dashboard.html";
+      });
+    });
+  </script>
+</html>

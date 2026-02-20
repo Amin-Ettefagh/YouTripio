@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="fa">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard - Profile</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script
+      src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs"
+      type="module"
+    ></script>
+    <style>
+      .card {
+        padding: 20px;
+        border-radius: 8px;
+        text-align: center;
+        width: 200px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+      /* Custom styles */
+      .footer {
+        background-color: #d1d1d1;
+        color: #333;
+        font-size: 0.875rem;
+        position: relative;
+        width: 100%;
+        padding: 1rem;
+        text-align: center;
+      }
+      .footer a {
+        color: #068606;
+      }
+      .modern-loading {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 999;
+        background-color: rgba(255, 255, 255, 0.8);
+        flex-direction: column;
+      }
+      .loader {
+        border: 8px solid rgba(0, 0, 0, 0.1);
+        border-left-color: #32cd32;
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        animation: spin 1s linear infinite;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      .card {
+        width: 300px; /* افزایش عرض */
+        height: 200px; /* افزایش ارتفاع */
+        margin: 8px; /* فاصله معقول بین باکس‌ها */
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s, box-shadow 0.3s;
+        margin: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+      .card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      }
+      .modal {
+        position: fixed;
+        z-index: 1000;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: rgba(0, 0, 0, 0.5);
+        visibility: hidden;
+        opacity: 0;
+        transition: visibility 0s, opacity 0.5s linear;
+      }
+      .modal.visible {
+        visibility: visible;
+        opacity: 1;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-100 text-black font-sans flex flex-col min-h-screen">
+    <header class="flex justify-between items-center p-5 bg-gray-300">
+      <h1 class="text-xl font-bold">YouTripia</h1>
+      <h2 class="text-xl">Dashboard - Profile</h2>
+    </header>
+
+    <div
+      class="flex items-center bg-white shadow-xl p-8 rounded-xl mt-8 w-full max-w-5xl mx-auto"
+    >
+      <div
+        class="w-32 h-32 rounded-full overflow-hidden border-4 border-green-500 shadow-lg"
+      >
+        <img
+          id="profileImage"
+          src="Profile.jpg"
+          alt="Profile"
+          class="w-full h-full object-cover"
+        />
+      </div>
+      <div class="ml-8 flex-grow">
+        <h3 id="profileName" class="text-2xl font-bold text-gray-800">
+          John Doe
+        </h3>
+        <p class="text-lg text-gray-500 mt-2">
+          Email:
+          <span id="profileEmail" class="text-gray-700"
+            >johndoe@example.com</span
+          >
+        </p>
+        <p class="text-lg text-gray-500 mt-2">
+          Phone:
+          <span id="profilePhone" class="text-gray-700">+1-234-567-890</span>
+        </p>
+        <p class="text-lg text-gray-500 mt-2">
+          Location:
+          <span id="profileLocation" class="text-gray-700"
+            >Auckland, New Zealand</span
+          >
+        </p>
+        <div class="flex mt-4 space-x-4">
+          <div class="flex items-center">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6 text-green-500"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 11c2.21 0 4-1.79 4-4S14.21 3 12 3 8 4.79 8 7s1.79 4 4 4z"
+              />
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 12c-4.42 0-8 3.58-8 8v2h16v-2c0-4.42-3.58-8-8-8z"
+              />
+            </svg>
+            <span class="ml-2 text-lg text-gray-700">Traveler Level: Gold</span>
+          </div>
+          <div class="flex items-center">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6 text-blue-500"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M5 12h14M5 12l4 4m-4-4l4-4"
+              />
+            </svg>
+            <span class="ml-2 text-lg text-gray-700">Verified User</span>
+          </div>
+        </div>
+        <div class="mt-4">
+          <p class="text-lg text-gray-500">
+            Bio:
+            <span id="profileBio" class="text-gray-700"
+              >Experienced traveler with a love for exploring new destinations
+              and sharing unique experiences.</span
+            >
+          </p>
+        </div>
+      </div>
+      <div class="ml-8">
+        <button
+          id="editProfileButton"
+          class="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-6 rounded-lg shadow-lg transition duration-300 ease-in-out"
+        >
+          Edit
+        </button>
+      </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div id="loading" class="modern-loading hidden">
+      <dotlottie-player
+        src="https://lottie.host/f19da744-98b3-478d-8baf-fb75d7b250e1/scVOIhGvoy.json"
+        background="transparent"
+        speed="1"
+        style="width: 300px; height: 300px"
+        loop
+        autoplay
+      ></dotlottie-player>
+      <div class="loading-text">Processing your request...</div>
+    </div>
+
+    <!-- Edit Profile Modal -->
+    <div id="editProfileModal" class="modal">
+      <div class="bg-white rounded-lg shadow-xl p-8 w-full max-w-md">
+        <h2 class="text-2xl font-semibold mb-6">Edit Profile</h2>
+        <form id="editProfileForm">
+          <label class="block mb-4">
+            <span class="text-gray-700">Name:</span>
+            <input
+              type="text"
+              id="editName"
+              class="form-input mt-1 block w-full"
+              value="John Doe"
+            />
+          </label>
+          <label class="block mb-4">
+            <span class="text-gray-700">Email:</span>
+            <input
+              type="email"
+              id="editEmail"
+              class="form-input mt-1 block w-full"
+              value="johndoe@example.com"
+            />
+          </label>
+          <label class="block mb-4">
+            <span class="text-gray-700">Phone:</span>
+            <input
+              type="tel"
+              id="editPhone"
+              class="form-input mt-1 block w-full"
+              value="+1-234-567-890"
+            />
+          </label>
+          <label class="block mb-4">
+            <span class="text-gray-700">Location:</span>
+            <input
+              type="text"
+              id="editLocation"
+              class="form-input mt-1 block w-full"
+              value="Auckland, New Zealand"
+            />
+          </label>
+          <label class="block mb-4">
+            <span class="text-gray-700">Bio:</span>
+            <textarea
+              id="editBio"
+              class="form-textarea mt-1 block w-full"
+              rows="3"
+            >
+Experienced traveler with a love for exploring new destinations and sharing unique experiences.</textarea
+            >
+          </label>
+          <label class="block mb-4">
+            <span class="text-gray-700">Profile Picture:</span>
+            <input
+              type="file"
+              id="editProfileImage"
+              class="form-input mt-1 block w-full"
+              accept="image/*"
+            />
+          </label>
+          <div class="flex justify-between mt-4">
+            <button
+              type="button"
+              id="cancelEditButton"
+              class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-lg transition duration-300 ease-in-out"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              class="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-lg transition duration-300 ease-in-out"
+            >
+              Save Changes
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="flex flex-wrap justify-center mt-10 gap-4">
+      <!-- Top Three Boxes -->
+      <div
+        class="card bg-black text-white cursor-pointer"
+        onclick="openWalletModal()"
+      >
+        <h3 class="text-xl font-bold">Wallet</h3>
+        <p class="text-lg">0000-0000-000-000</p>
+        <p id="walletAmountDisplay" class="text-2xl font-bold my-2">$500</p>
+      </div>
+      <div
+        class="card bg-blue-300 text-black cursor-pointer"
+        onclick="navigateTo('control.html')"
+      >
+        <h3 class="text-xl font-bold">Activities</h3>
+      </div>
+      <div
+        class="card bg-yellow-300 text-black cursor-pointer"
+        onclick="navigateTo('request.html')"
+      >
+        <h3 class="text-xl font-bold">Market</h3>
+      </div>
+    </div>
+
+    <!-- Second Row - Initial Display with Parcels and Companionship Boxes -->
+    <div id="initialOptions" class="flex justify-center mt-10 gap-4">
+      <div
+        class="card bg-orange-300 cursor-pointer"
+        onclick="showParcelsOptions()"
+      >
+        <h3 class="text-xl font-bold">Parcels</h3>
+      </div>
+      <div
+        class="card bg-green-300 cursor-pointer"
+        onclick="showCompanionshipOptions()"
+      >
+        <h3 class="text-xl font-bold">Companionship</h3>
+      </div>
+    </div>
+
+    <!-- Second Row - Parcel Options (Initially Hidden) -->
+    <div id="parcelOptions" class="flex justify-center mt-10 gap-4 hidden">
+      <div
+        class="card bg-pink-300 cursor-pointer"
+        onclick="showParcelActions('parcel')"
+      >
+        <h3 class="text-xl font-bold">I have a parcel</h3>
+      </div>
+      <div
+        class="card bg-purple-300 cursor-pointer"
+        onclick="showParcelActions('courier')"
+      >
+        <h3 class="text-xl font-bold">I am a courier</h3>
+      </div>
+    </div>
+
+    <!-- Second Row - Companionship Options (Initially Hidden) -->
+    <div id="companionOptions" class="flex justify-center mt-10 gap-4 hidden">
+      <div
+        class="card bg-pink-300 cursor-pointer"
+        onclick="showCompanionActions('need')"
+      >
+        <h3 class="text-xl font-bold">I need a companion</h3>
+      </div>
+      <div
+        class="card bg-purple-300 cursor-pointer"
+        onclick="showCompanionActions('am')"
+      >
+        <h3 class="text-xl font-bold">I am a companion</h3>
+      </div>
+    </div>
+
+    <!-- Actions Display (Initially Hidden) -->
+    <div id="actionOptions" class="flex justify-center mt-10 gap-4 hidden">
+      <!-- Content dynamically inserted by JavaScript based on selections -->
+    </div>
+
+    <!-- Wallet Modal -->
+    <div id="walletModal" class="modal">
+      <div class="bg-white rounded-lg shadow-xl p-8 w-full max-w-md">
+        <h2 class="text-2xl font-semibold mb-6">Recharge Wallet</h2>
+        <form id="walletForm">
+          <label class="block mb-4">
+            <span class="text-gray-700">Card Number:</span>
+            <input
+              type="text"
+              id="walletCardNumber"
+              class="form-input mt-1 block w-full"
+              value="0000-0000-0000-0000"
+              readonly
+            />
+          </label>
+          <label class="block mb-4">
+            <span class="text-gray-700">Password:</span>
+            <input
+              type="password"
+              id="walletPassword"
+              class="form-input mt-1 block w-full"
+            />
+          </label>
+          <label class="block mb-4">
+            <span class="text-gray-700">Amount:</span>
+            <input
+              type="number"
+              id="walletAmount"
+              class="form-input mt-1 block w-full"
+            />
+          </label>
+          <div class="flex justify-between mt-4">
+            <button
+              type="button"
+              id="cancelWalletButton"
+              class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-lg transition duration-300 ease-in-out"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              class="bg-gray-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-lg transition duration-300 ease-in-out"
+            >
+              Recharge
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <footer class="footer mt-auto">
+      <div class="flex justify-between items-center">
+        <div class="text-left">
+          <span class="text-2xl font-semibold">YouTripia</span>
+        </div>
+        <div>
+          <p class="text-sm mb-1">
+            Email: <a href="mailto:info@YouTripia.com">info@YouTripia.com</a>
+          </p>
+        </div>
+        <div class="text-right">
+          <span>+1-800-555-0199</span>
+          <span>YouTripia | Address</span>
+        </div>
+      </div>
+    </footer>
+
+    <a
+      href="index.html"
+      class="fixed bottom-24 right-5 bg-gray-500 text-white font-semibold py-2 px-4 rounded-full shadow-lg hover:bg-blue-600 transition duration-300 ease-in-out"
+    >
+      Back
+    </a>
+
+    <script>
+      function resetView() {
+        // Reset to initial view
+        document.getElementById("initialOptions").classList.remove("hidden");
+        document.getElementById("parcelOptions").classList.add("hidden");
+        document.getElementById("companionOptions").classList.add("hidden");
+        document.getElementById("actionOptions").classList.add("hidden");
+        document.getElementById("actionOptions").innerHTML = ""; // Clear action buttons
+      }
+
+      function showParcelsOptions() {
+        document.getElementById("initialOptions").classList.add("hidden");
+        document.getElementById("parcelOptions").classList.remove("hidden");
+        document.getElementById("companionOptions").classList.add("hidden");
+      }
+
+      function showCompanionshipOptions() {
+        document.getElementById("initialOptions").classList.add("hidden");
+        document.getElementById("parcelOptions").classList.add("hidden");
+        document.getElementById("companionOptions").classList.remove("hidden");
+      }
+
+      function showParcelActions(option) {
+        document.getElementById("parcelOptions").classList.add("hidden");
+        document.getElementById("actionOptions").classList.remove("hidden");
+
+        if (option === "parcel") {
+          document.getElementById("actionOptions").innerHTML = `
+            <div class="card bg-red-300 cursor-pointer" onclick="navigateTo('CarryCargoList.html')">
+              <h3 class="text-xl font-bold">Find a courier who can take your parcel</h3>
+            </div>
+            <div class="card bg-orange-300 cursor-pointer" onclick="navigateTo('CarryCargoForm.html')">
+              <h3 class="text-xl font-bold">Advertise your parcel</h3>
+            </div>
+          `;
+        } else if (option === "courier") {
+          document.getElementById("actionOptions").innerHTML = `
+            <div class="card bg-red-300 cursor-pointer" onclick="navigateTo('SendCargoList.html')">
+              <h3 class="text-xl font-bold">Find a parcel</h3>
+            </div>
+            <div class="card bg-orange-300 cursor-pointer" onclick="navigateTo('SendCargoForm.html')">
+              <h3 class="text-xl font-bold">Advertise your vacant capacity to carry a parcel</h3>
+            </div>
+          `;
+        }
+      }
+
+      function showCompanionActions(option) {
+        document.getElementById("companionOptions").classList.add("hidden");
+        document.getElementById("actionOptions").classList.remove("hidden");
+
+        if (option === "need") {
+          document.getElementById("actionOptions").innerHTML = `
+            <div class="card bg-red-300 cursor-pointer" onclick="navigateTo('CaryCompanionList.html')">
+              <h3 class="text-xl font-bold">Find your trusted companion</h3>
+            </div>
+            <div class="card bg-orange-300 cursor-pointer" onclick="navigateTo('CaryCompanionForm.html')">
+              <h3 class="text-xl font-bold">Advertise your need for a companion</h3>
+            </div>
+          `;
+        } else if (option === "am") {
+          document.getElementById("actionOptions").innerHTML = `
+            <div class="card bg-red-300 cursor-pointer" onclick="navigateTo('SendCompanionList.html')">
+              <h3 class="text-xl font-bold">Find someone who needs a companion</h3>
+            </div>
+            <div class="card bg-orange-300 cursor-pointer" onclick="navigateTo('SendCompanionForm.html')">
+              <h3 class="text-xl font-bold">Advertise your interest to be a companion</h3>
+            </div>
+          `;
+        }
+      }
+
+      function navigateTo(url) {
+        window.location.href = url; // Change this to desired navigation behavior
+      }
+
+      let currentWalletAmount = 500; // Initial wallet amount
+
+      function openWalletModal() {
+        document.getElementById("loading").classList.remove("hidden");
+        document.body.classList.add("loading-blur");
+        setTimeout(() => {
+          document.getElementById("loading").classList.add("hidden");
+          document.getElementById("walletModal").classList.add("visible");
+        }, 1000);
+      }
+
+      function navigateTo(page) {
+        document.getElementById("loading").classList.remove("hidden");
+        document.body.classList.add("loading-blur");
+        setTimeout(() => {
+          document.getElementById("loading").classList.add("hidden");
+          window.location.href = page;
+        }, 1000);
+      }
+
+      function showLoading() {
+        document.getElementById("loading").classList.remove("hidden");
+        document.body.classList.add("loading-blur");
+      }
+
+      function hideLoading() {
+        document.getElementById("loading").classList.add("hidden");
+        document.body.classList.remove("loading-blur");
+      }
+
+      document.getElementById("editProfileButton").onclick = function () {
+        showLoading();
+        setTimeout(() => {
+          document.getElementById("editProfileModal").classList.add("visible");
+          hideLoading();
+        }, 1000);
+      };
+
+      document.getElementById("cancelEditButton").onclick = function () {
+        document.getElementById("editProfileModal").classList.remove("visible");
+      };
+
+      document.getElementById("cancelWalletButton").onclick = function () {
+        document.getElementById("walletModal").classList.remove("visible");
+      };
+
+      document.getElementById("editProfileForm").onsubmit = function (e) {
+        e.preventDefault();
+        showLoading();
+
+        setTimeout(function () {
+          hideLoading();
+          document
+            .getElementById("editProfileModal")
+            .classList.remove("visible");
+          document.getElementById("profileName").textContent =
+            document.getElementById("editName").value;
+          document.getElementById("profileEmail").textContent =
+            document.getElementById("editEmail").value;
+          document.getElementById("profilePhone").textContent =
+            document.getElementById("editPhone").value;
+          document.getElementById("profileLocation").textContent =
+            document.getElementById("editLocation").value;
+          document.getElementById("profileBio").textContent =
+            document.getElementById("editBio").value;
+
+          const profileImageFile =
+            document.getElementById("editProfileImage").files[0];
+          if (profileImageFile) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+              document.getElementById("profileImage").src = e.target.result;
+            };
+            reader.readAsDataURL(profileImageFile);
+          }
+        }, 2000);
+      };
+
+      document.getElementById("walletForm").onsubmit = function (e) {
+        e.preventDefault();
+        showLoading();
+
+        setTimeout(() => {
+          const amount = parseInt(
+            document.getElementById("walletAmount").value
+          );
+          if (amount > 0) {
+            currentWalletAmount += amount; // Update wallet amount
+            document.getElementById(
+              "walletAmountDisplay"
+            ).textContent = `$${currentWalletAmount}`;
+          }
+          hideLoading();
+          document.getElementById("walletModal").classList.remove("visible");
+        }, 2000);
+      };
+    </script>
+  </body>
+</html>

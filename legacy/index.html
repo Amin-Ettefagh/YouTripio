@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>YouTripia</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.js"></script>
+    <style>
+      header {
+        padding: 1rem 1.5rem;
+      }
+
+      main {
+        padding-bottom: 4rem;
+        height: calc(100vh - 8rem);
+      }
+
+      footer {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        padding: 0.5rem 0;
+        background-color: white;
+      }
+      .social-icons {
+        margin-top: 1rem;
+      }
+      .social-icons a {
+        transition: color 0.3s ease;
+        font-size: 1.5rem;
+      }
+      .social-icons a:hover {
+        color: blue;
+      }
+      #blurOverlay {
+        display: none;
+        backdrop-filter: blur(10px);
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 999;
+      }
+    </style>
+  </head>
+  <body class="bg-white text-black">
+    <div
+      id="loadingOverlay"
+      class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center z-50"
+    >
+      <dotlottie-player
+        src="https://lottie.host/f19da744-98b3-478d-8baf-fb75d7b250e1/scVOIhGvoy.json"
+        background="transparent"
+        speed="1"
+        style="width: 300px; height: 300px"
+        loop
+        autoplay
+      ></dotlottie-player>
+    </div>
+    <div
+      id="blurOverlay"
+      class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 backdrop-blur-md z-40"
+    ></div>
+
+    <header
+      class="w-full bg-gray-100 py-2 px-3 flex justify-between items-center shadow"
+    >
+      <h1 class="text-3xl font-bold">YouTripia</h1>
+
+      <div class="flex space-x-8">
+        <a href="#" id="aboutUs" class="hover:text-gray-600 transition"
+          >About Us</a
+        >
+        <a href="#" id="contactUs" class="hover:text-gray-600 transition"
+          >Contact Us</a
+        >
+        <a href="#" id="termsCondition" class="hover:text-gray-600 transition"
+          >Terms and Condition</a
+        >
+        <a href="#" id="blog" class="hover:text-gray-600 transition">Blog</a>
+        <a href="#" id="services" class="hover:text-gray-600 transition"
+          >Services</a
+        >
+      </div>
+
+      <div class="space-x-4">
+        <button
+          id="loginBtn"
+          class="mx-auto lg:mx-0 bg-blue-600 text-white font-bold rounded-full mt-4 lg:mt-0 py-4 px-8 shadow opacity-75 focus:outline-none focus:shadow-outline transition hover:scale-105 duration-300 ease-in-out"
+        >
+          Sign in
+        </button>
+        <button
+          id="registerBtn"
+          class="mx-auto lg:mx-0 bg-blue-600 text-white font-bold rounded-full mt-4 lg:mt-0 py-4 px-8 shadow opacity-75 focus:outline-none focus:shadow-outline transition hover:scale-105 duration-300 ease-in-out"
+        >
+          Sign up
+        </button>
+      </div>
+    </header>
+
+    <main
+      class="flex flex-col items-center justify-center h-screen max-h-[calc(100vh-8rem)] py-8"
+    >
+      <div class="flex items-center justify-center space-x-6">
+        <img
+          src="hero.png"
+          alt="Hero Image"
+          class="w-full max-w-lg md:max-w-xl transform scale-110 mr-8"
+        />
+
+        <div class="flex flex-col items-start">
+          <h1 class="text-5xl font-bold transform scale-110">
+            Delivery beyond suppose
+          </h1>
+        </div>
+      </div>
+    </main>
+
+    <footer class="flex flex-col items-center py-2 mt-4">
+      <div class="social-icons flex space-x-4">
+        <a href="#" class="text-black"><i class="fab fa-tiktok"></i></a>
+        <a href="#" class="text-black"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="text-black"><i class="fab fa-youtube"></i></a>
+        <a href="#" class="text-black"><i class="fab fa-facebook"></i></a>
+        <a href="#" class="text-black"><i class="fab fa-whatsapp"></i></a>
+        <a href="#" class="text-black"><i class="fab fa-telegram"></i></a>
+        <a href="#" class="text-black"><i class="fab fa-twitter"></i></a>
+        <a href="#" class="text-black"><i class="fab fa-github"></i></a>
+        <a href="#" class="text-black"><i class="fab fa-linkedin"></i></a>
+        <a href="#" class="text-black"><i class="fas fa-envelope"></i></a>
+      </div>
+    </footer>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+
+    <div
+      id="loginModal"
+      class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 backdrop-blur-sm flex justify-center items-center"
+    >
+      <div class="bg-white p-4 rounded-md shadow-md w-full max-w-sm">
+        <h2 class="text-2xl mb-4">Sign in</h2>
+        <form id="loginForm" class="space-y-2">
+          <input
+            type="text"
+            id="loginUsername"
+            placeholder="Username"
+            class="w-full px-4 py-2 bg-gray-200 rounded focus:outline-none"
+          />
+          <input
+            type="password"
+            id="loginPassword"
+            placeholder="Password"
+            class="w-full px-4 py-2 bg-gray-200 rounded focus:outline-none"
+          />
+          <button
+            type="submit"
+            class="bg-green-600 text-white w-full py-1 rounded"
+          >
+            Sign in
+          </button>
+          <p class="text-center mt-2">
+            Don't have an account?
+            <a id="openRegister" href="#" class="text-blue-500">Sign up</a>
+          </p>
+        </form>
+      </div>
+    </div>
+
+    <div
+      id="registerModal"
+      class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 backdrop-blur-sm flex justify-center items-center"
+    >
+      <div class="bg-white p-4 rounded-md shadow-md w-full max-w-sm">
+        <h2 class="text-2xl mb-4">Sign up</h2>
+        <form id="registerForm" class="space-y-2">
+          <input
+            type="text"
+            id="firstName"
+            placeholder="First Name"
+            class="w-full px-4 py-2 bg-gray-200 rounded focus:outline-none"
+          />
+          <input
+            type="text"
+            id="lastName"
+            placeholder="Last Name"
+            class="w-full px-4 py-2 bg-gray-200 rounded focus:outline-none"
+          />
+          <input
+            type="tel"
+            id="phone"
+            placeholder="Phone Number"
+            class="w-full px-4 py-2 bg-gray-200 rounded focus:outline-none"
+          />
+          <input
+            type="email"
+            id="email"
+            placeholder="Email"
+            class="w-full px-4 py-2 bg-gray-200 rounded focus:outline-none"
+          />
+          <input
+            type="text"
+            id="registerUsername"
+            placeholder="Username"
+            class="w-full px-4 py-2 bg-gray-200 rounded focus:outline-none"
+          />
+          <input
+            type="password"
+            id="registerPassword"
+            placeholder="Password"
+            class="w-full px-4 py-2 bg-gray-200 rounded focus:outline-none"
+          />
+          <input
+            type="password"
+            id="confirmPassword"
+            placeholder="Confirm Password"
+            class="w-full px-4 py-2 bg-gray-200 rounded focus:outline-none"
+          />
+          <button
+            type="submit"
+            class="bg-blue-600 text-white w-full py-1 rounded"
+          >
+            Sign up
+          </button>
+          <p class="text-center mt-2">
+            Already have an account?
+            <a id="openLogin" href="#" class="text-blue-500">Sign in</a>
+          </p>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      const loginBtn = document.getElementById("loginBtn");
+      const registerBtn = document.getElementById("registerBtn");
+      const loginModal = document.getElementById("loginModal");
+      const registerModal = document.getElementById("registerModal");
+      const openRegister = document.getElementById("openRegister");
+      const openLogin = document.getElementById("openLogin");
+      const loadingOverlay = document.getElementById("loadingOverlay");
+      const aboutUs = document.getElementById("aboutUs");
+      const contactUs = document.getElementById("contactUs");
+
+      // Show Login Modal
+      // Show Login Modal
+      loginBtn.addEventListener("click", () => {
+        loadingOverlay.classList.remove("hidden");
+        blurOverlay.classList.remove("hidden"); // Show blur overlay
+        setTimeout(() => {
+          loadingOverlay.classList.add("hidden");
+          blurOverlay.classList.add("hidden"); // Hide blur overlay
+          loginModal.classList.remove("hidden");
+        }, 1500); // Simulate loading animation
+      });
+
+      // Show Register Modal
+      registerBtn.addEventListener("click", () => {
+        loadingOverlay.classList.remove("hidden");
+        blurOverlay.classList.remove("hidden"); // Show blur overlay
+        setTimeout(() => {
+          loadingOverlay.classList.add("hidden");
+          blurOverlay.classList.add("hidden"); // Hide blur overlay
+          registerModal.classList.remove("hidden");
+        }, 1500); // Simulate loading animation
+      });
+
+      // Handle About Us click
+      aboutUs.addEventListener("click", (e) => {
+        e.preventDefault();
+        loadingOverlay.classList.remove("hidden");
+        blurOverlay.classList.remove("hidden"); // Show blur overlay
+        setTimeout(() => {
+          loadingOverlay.classList.add("hidden");
+          blurOverlay.classList.add("hidden"); // Hide blur overlay
+          window.location.href = "about.html";
+        }, 1500); // Simulate loading animation
+      });
+
+      // Handle Contact Us click
+      contactUs.addEventListener("click", (e) => {
+        e.preventDefault();
+        loadingOverlay.classList.remove("hidden");
+        blurOverlay.classList.remove("hidden"); // Show blur overlay
+        setTimeout(() => {
+          loadingOverlay.classList.add("hidden");
+          blurOverlay.classList.add("hidden"); // Hide blur overlay
+          window.location.href = "contact.html";
+        }, 1500); // Simulate loading animation
+      });
+
+      // Switch to Register Modal
+      openRegister.addEventListener("click", () => {
+        loginModal.classList.add("hidden");
+        registerModal.classList.remove("hidden");
+      });
+
+      // Switch to Login Modal
+      openLogin.addEventListener("click", () => {
+        registerModal.classList.add("hidden");
+        loginModal.classList.remove("hidden");
+      });
+
+      // Handle Login Form Submission
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+          const username = document.getElementById("loginUsername").value;
+          const password = document.getElementById("loginPassword").value;
+          if (username && password) {
+            window.location.href = "dashboard.html";
+          } else {
+            alert("Please fill in all fields.");
+          }
+        });
+
+      // Handle Register Form Submission
+      document
+        .getElementById("registerForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+          const firstName = document.getElementById("firstName").value;
+          const lastName = document.getElementById("lastName").value;
+          const phone = document.getElementById("phone").value;
+          const email = document.getElementById("email").value;
+          const username = document.getElementById("registerUsername").value;
+          const password = document.getElementById("registerPassword").value;
+          const confirmPassword =
+            document.getElementById("confirmPassword").value;
+
+          if (
+            firstName &&
+            lastName &&
+            phone &&
+            email &&
+            username &&
+            password &&
+            confirmPassword
+          ) {
+            if (password === confirmPassword) {
+              window.location.href = "dashboard.html";
+            } else {
+              alert("Passwords do not match.");
+            }
+          } else {
+            alert("Please fill in all fields.");
+          }
+        });
+
+      // Close Modal if clicked outside
+      window.addEventListener("click", function (event) {
+        if (event.target === loginModal) {
+          loginModal.classList.add("hidden");
+        } else if (event.target === registerModal) {
+          registerModal.classList.add("hidden");
+        }
+      });
+      // Handle Terms and Condition click
+      document
+        .getElementById("termsCondition")
+        .addEventListener("click", (e) => {
+          e.preventDefault();
+          loadingOverlay.classList.remove("hidden");
+          blurOverlay.classList.remove("hidden"); // Show blur overlay
+          setTimeout(() => {
+            loadingOverlay.classList.add("hidden");
+            blurOverlay.classList.add("hidden"); // Hide blur overlay
+            window.location.href = "soon.html";
+          }, 1500); // Simulate loading animation
+        });
+
+      // Handle Blog click
+      document.getElementById("blog").addEventListener("click", (e) => {
+        e.preventDefault();
+        loadingOverlay.classList.remove("hidden");
+        blurOverlay.classList.remove("hidden"); // Show blur overlay
+        setTimeout(() => {
+          loadingOverlay.classList.add("hidden");
+          blurOverlay.classList.add("hidden"); // Hide blur overlay
+          window.location.href = "soon.html";
+        }, 1500); // Simulate loading animation
+      });
+
+      // Handle Services click
+      document.getElementById("services").addEventListener("click", (e) => {
+        e.preventDefault();
+        loadingOverlay.classList.remove("hidden");
+        blurOverlay.classList.remove("hidden"); // Show blur overlay
+        setTimeout(() => {
+          loadingOverlay.classList.add("hidden");
+          blurOverlay.classList.add("hidden"); // Hide blur overlay
+          window.location.href = "soon.html";
+        }, 1500); // Simulate loading animation
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Selection Form</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      .toast {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background-color: rgba(255, 0, 0, 0.8);
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        display: none;
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+      }
+      .toast.show {
+        display: block;
+        opacity: 1;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-100">
+    <!-- Header -->
+    <header class="flex justify-between items-center p-5 bg-gray-300">
+      <h1 class="text-xl font-bold">YouTripia</h1>
+      <h2 class="text-xl">Dashboard - Profile</h2>
+    </header>
+
+    <!-- Main Container -->
+    <div
+      class="flex flex-col md:flex-row justify-between items-start mt-10 p-5 space-y-5 md:space-y-0 md:space-x-5"
+    >
+      <!-- Right Box: Carry Parcel -->
+      <div class="w-full md:w-1/2 p-5 border rounded-md shadow-md">
+        <h3 class="text-lg font-bold mb-4">Carry parcel request</h3>
+        <div id="parcelRequests" class="space-y-4">
+          <!-- Parcel request items -->
+          <div
+            onclick="toggleSelection(this)"
+            class="p-4 border border-gray-300 rounded-md cursor-pointer"
+            data-selected="false"
+          >
+            <p>User name: John doe</p>
+            <p>Parcel content: Pet</p>
+            <p>Dimension: 50-20-20</p>
+            <p>Weight: 20</p>
+          </div>
+          <div
+            onclick="toggleSelection(this)"
+            class="p-4 border border-gray-300 rounded-md cursor-pointer"
+            data-selected="false"
+          >
+            <p>User name: John doe</p>
+            <p>Parcel content: Pet</p>
+            <p>Dimension: 50-20-20</p>
+            <p>Weight: 20</p>
+          </div>
+          <div
+            onclick="toggleSelection(this)"
+            class="p-4 border border-gray-300 rounded-md cursor-pointer"
+            data-selected="false"
+          >
+            <p>User name: John doe</p>
+            <p>Parcel content: Pet</p>
+            <p>Dimension: 50-20-20</p>
+            <p>Weight: 20</p>
+          </div>
+          <div
+            onclick="toggleSelection(this)"
+            class="p-4 border border-gray-300 rounded-md cursor-pointer"
+            data-selected="false"
+          >
+            <p>User name: John doe</p>
+            <p>Parcel content: Pet</p>
+            <p>Dimension: 50-20-20</p>
+            <p>Weight: 20</p>
+          </div>
+
+          <!-- Repeat as necessary... -->
+        </div>
+        <div id="parcelMessage" class="mt-4"></div>
+        <button
+          id="parcelSubmit"
+          onclick="submitRequest('parcelRequests', 'parcelMessage')"
+          class="mt-4 px-4 py-2 bg-blue-500 text-white rounded"
+        >
+          Submit
+        </button>
+      </div>
+
+      <!-- Left Box: Companion Request -->
+      <div class="w-full md:w-1/2 p-5 border rounded-md shadow-md">
+        <h3 class="text-lg font-bold mb-4">Companion request</h3>
+        <div id="companionRequests" class="space-y-4">
+          <!-- Companion request items -->
+          <div
+            onclick="toggleSelection(this)"
+            class="p-4 border border-gray-300 rounded-md cursor-pointer"
+            data-selected="false"
+          >
+            <p>User name: John doe</p>
+            <p>Passenger number: 1</p>
+          </div>
+          <div
+            onclick="toggleSelection(this)"
+            class="p-4 border border-gray-300 rounded-md cursor-pointer"
+            data-selected="false"
+          >
+            <p>User name: John doe</p>
+            <p>Passenger number: 1</p>
+          </div>
+
+          <div
+            onclick="toggleSelection(this)"
+            class="p-4 border border-gray-300 rounded-md cursor-pointer"
+            data-selected="false"
+          >
+            <p>User name: John doe</p>
+            <p>Passenger number: 1</p>
+          </div>
+          <div
+            onclick="toggleSelection(this)"
+            class="p-4 border border-gray-300 rounded-md cursor-pointer"
+            data-selected="false"
+          >
+            <p>User name: John doe</p>
+            <p>Passenger number: 1</p>
+          </div>
+          <div
+            onclick="toggleSelection(this)"
+            class="p-4 border border-gray-300 rounded-md cursor-pointer"
+            data-selected="false"
+          >
+            <p>User name: John doe</p>
+            <p>Passenger number: 1</p>
+          </div>
+          <div
+            onclick="toggleSelection(this)"
+            class="p-4 border border-gray-300 rounded-md cursor-pointer"
+            data-selected="false"
+          >
+            <p>User name: John doe</p>
+            <p>Passenger number: 1</p>
+          </div>
+          <!-- Repeat as necessary... -->
+        </div>
+        <div id="companionMessage" class="mt-4"></div>
+        <button
+          id="companionSubmit"
+          onclick="submitRequest('companionRequests', 'companionMessage')"
+          class="mt-4 px-4 py-2 bg-blue-500 text-white rounded"
+        >
+          Submit
+        </button>
+      </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <!-- Floating Back Button -->
+    <button
+      onclick="window.location.href='dashboard.html'"
+      class="fixed bottom-4 right-4 bg-gray-500 text-white px-4 py-2 rounded-full hover:bg-blue-500"
+    >
+      Back
+    </button>
+
+    <script>
+      // Function to toggle selection
+      function toggleSelection(element) {
+        const selected = element.getAttribute("data-selected") === "true";
+        if (selected) {
+          element.classList.remove("border-green-500");
+          element.classList.add("border-gray-300");
+          element.setAttribute("data-selected", "false");
+        } else {
+          element.classList.remove("border-gray-300");
+          element.classList.add("border-green-500");
+          element.setAttribute("data-selected", "true");
+        }
+      }
+
+      // Function to show a toast notification
+      function showToast(message) {
+        const toast = document.getElementById("toast");
+        toast.textContent = message;
+        toast.classList.add("show");
+        setTimeout(() => {
+          toast.classList.remove("show");
+        }, 3000);
+      }
+
+      // Function to submit the request
+      function submitRequest(requestType, messageId) {
+        const requests = document.querySelectorAll(
+          `#${requestType} [data-selected='true']`
+        );
+        const messageBox = document.getElementById(messageId);
+        const submitButton = messageBox.nextElementSibling; // Find the submit button next to the message box
+
+        if (requests.length === 0) {
+          showToast("Error: No items selected.");
+        } else {
+          messageBox.innerHTML =
+            "<p class='text-green-500 font-bold'>Successful</p>";
+          document.getElementById(requestType).innerHTML = ""; // Clear the content after successful submission
+
+          // Hide the submit button after success
+          submitButton.style.display = "none";
+        }
+      }
+    </script>
+  </body>
+</html>

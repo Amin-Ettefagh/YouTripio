@@ -1,0 +1,82 @@
+﻿@import "tailwindcss";
+
+:root {
+  --bg: 9 14 25;
+  --bg-elev: 15 23 38;
+  --card: 18 28 48;
+  --text: 226 232 240;
+  --muted: 148 163 184;
+  --accent: 34 211 238;
+  --accent-strong: 16 185 129;
+  --border: 51 65 85;
+  --ring: 94 234 212;
+  color-scheme: dark;
+}
+
+.light {
+  --bg: 248 250 252;
+  --bg-elev: 241 245 249;
+  --card: 255 255 255;
+  --text: 15 23 42;
+  --muted: 71 85 105;
+  --accent: 2 132 199;
+  --accent-strong: 5 150 105;
+  --border: 203 213 225;
+  --ring: 14 116 144;
+  color-scheme: light;
+}
+
+@theme inline {
+  --color-bg: rgb(var(--bg));
+  --color-elev: rgb(var(--bg-elev));
+  --color-card: rgb(var(--card));
+  --color-text: rgb(var(--text));
+  --color-muted: rgb(var(--muted));
+  --color-accent: rgb(var(--accent));
+  --color-accent-strong: rgb(var(--accent-strong));
+  --color-border: rgb(var(--border));
+  --color-ring: rgb(var(--ring));
+  --font-sans: var(--font-body);
+  --font-display: var(--font-display);
+}
+
+@layer base {
+  * {
+    @apply border-[color:var(--color-border)];
+  }
+
+  body {
+    @apply bg-[color:var(--color-bg)] text-[color:var(--color-text)] min-h-screen;
+    font-family: var(--font-body);
+  }
+
+  html[dir="rtl"] body {
+    direction: rtl;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+
+  a {
+    @apply text-[color:var(--color-text)] hover:text-[color:var(--color-text)] transition;
+  }
+
+  ::selection {
+    background: rgba(94, 234, 212, 0.3);
+  }
+}
+
+@layer utilities {
+  .glass {
+    @apply bg-[color:var(--color-card)]/80 backdrop-blur-xl border border-[color:var(--color-border)] shadow-lg;
+  }
+
+  .section-shell {
+    @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8;
+  }
+}
